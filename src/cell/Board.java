@@ -12,6 +12,9 @@ public class Board {
 	 * El contenido del tablero de modela con una matriz de listas, 
 	 * donde cada elemento es una capa del tablero
 	 */
-	private List<CellContent>[][] dataMatrix;
+	private Cell[][] dataMatrix;
 	//TODO toda la clase basicamente :P
+	public Cell getCell(int x, int y) {
+		return dataMatrix[x][y];
+	}
 }

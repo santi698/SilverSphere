@@ -5,5 +5,6 @@ package cell;
  *
  */
 public class Game {
-
+	Board board;
+	
 }
