@@ -1,5 +1,5 @@
 package cell;
 
-public class Water extends Cell implements Walkable {
+public class Water extends CellContent implements Walkable {
 	
 }

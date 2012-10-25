@@ -1,6 +1,6 @@
 package cell;
 
-public class Character extends Cell implements Movable {
+public class Character extends CellContent implements Movable {
 
 	@Override
 	public void move(Direction direction) {

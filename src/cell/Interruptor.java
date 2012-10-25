@@ -1,5 +1,5 @@
 package cell;
 
-public class Interruptor extends Cell implements Walkable {
+public class Interruptor extends CellContent implements Walkable {
 
 }
