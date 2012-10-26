@@ -1,0 +1,8 @@
+TTTTT    TBBBBT
+BB    GTT   ##T
+###   k#######T
+B    ######   T
+T       ######T
+TG          ##T
+T          ###T
+TTTTTTTTTTTTTTT
