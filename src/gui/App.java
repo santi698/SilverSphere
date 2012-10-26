@@ -13,9 +13,9 @@ public class App {
 	/**
 	 * @param args
 	 */
-	public static void setCellContents (Board board, gui.BoardPanel boardPanel) {
-		for (int i = 0; i < boardPanel.getBounds().height; i++) {
-			for (int j = 0; j < boardPanel.getBounds().width; j++) {
+	public static void setCellContents (Board board, gui.BoardPanel panel) {
+		for (int i = 0; i < panel.getBounds().height; i++) {
+			for (int j = 0; j < panel.getBounds().width; j++) {
 				
 			}
 		}
@@ -30,6 +30,11 @@ public class App {
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+	
+	public static void drawCell (cell.Cell cell, int row, int column, gui.BoardPanel panel) {
+		panel.setImage(row, column, cell.getTop().getImage());
+		panel.appendImage(row, column, cell.getBottom().getImage());
 	}
 
 }

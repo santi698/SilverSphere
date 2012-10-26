@@ -1,4 +1,7 @@
 package cell;
+
+import java.awt.Image;
+
 /**
  * Clase que representa un cubo de hielo
  * @author santi698
@@ -14,6 +17,11 @@ public class IceBlock extends CellContent implements Movable {
 	public void move(Direction direction) {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

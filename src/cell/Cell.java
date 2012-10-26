@@ -7,10 +7,10 @@ public class Cell {
 	Cell() {
 		celda = new CellContent[2];
 	}
-	CellContent getTop() {
+	public CellContent getTop() {
 		return celda[1];
 	}
-	CellContent getBottom() {
+	public CellContent getBottom() {
 		return celda[0];
 	}
 	CellContent[] toArray() {
