@@ -17,7 +17,7 @@ public class Board {
 	}
 	private Cell[][] dataMatrix;
 	//TODO toda la clase basicamente :P
-	private static Cell[][] parse (String s) {
+	public static Cell[][] parse (String s) {
 		//TODO escribir
 		return null;
 	}
