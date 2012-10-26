@@ -1,5 +1,6 @@
 package cell;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ import gui.ImageUtils;
 public class Box extends CellContent implements Movable {
 	static {
 		try {
-			image = ImageUtils.loadImage("resources/box.png");
+			image = ImageUtils.colorize(ImageUtils.loadImage("resources/box.png"), new Color(171, 136, 51));;
 		}
 		catch (IOException e) {
 			e.printStackTrace();
