@@ -11,7 +11,7 @@ import gui.ImageUtils;
  * @author santi698
  *
  */
-public class Box extends CellContent implements Movable {
+public class Box extends CellContent {
 	static {
 		try {
 			image = ImageUtils.colorize(ImageUtils.loadImage("resources/box.png"), new Color(171, 136, 51));;
@@ -24,7 +24,7 @@ public class Box extends CellContent implements Movable {
 		}
 	}
 	private static Image image;
-	@Override
+	
 	public void move(Direction direction) {
 		// TODO Auto-generated method stub
 		

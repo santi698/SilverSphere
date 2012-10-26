@@ -1,6 +1,5 @@
 package cell;
 
-import java.util.List;
 /** 
  * Clase que representa el tablero de juego
  * 

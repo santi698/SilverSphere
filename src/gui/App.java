@@ -5,6 +5,8 @@ import java.awt.Image;
 import javax.swing.JFrame;
 
 import cell.Board;
+import cell.ContainerCell;
+import cell.Direction;
 
 import sample.SampleFrame;
 
@@ -33,8 +35,9 @@ public class App {
 	}
 	
 	public static void drawCell (cell.Cell cell, int row, int column, gui.BoardPanel panel) {
-		panel.setImage(row, column, cell.getTop().getImage());
-		panel.appendImage(row, column, cell.getBottom().getImage());
+		panel.setImage(row, column, cell.getImage());
+		if (cell instanceof ContainerCell)
+			panel.appendImage(row, column, ((ContainerCell) cell).getContent().getImage());
 	}
 
 }

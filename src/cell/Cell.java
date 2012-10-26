@@ -1,19 +1,11 @@
 package cell;
 
-public class Cell {
+import java.awt.Image;
 
-	private CellContent[] celda;
-	
-	Cell() {
-		celda = new CellContent[2];
-	}
-	public CellContent getTop() {
-		return celda[1];
-	}
-	public CellContent getBottom() {
-		return celda[0];
-	}
-	CellContent[] toArray() {
-		return celda;
+public abstract class Cell {
+	private Image image;
+	public abstract boolean isEmpty();
+	public Image getImage() {
+		return image;
 	}
 }

@@ -7,8 +7,8 @@ import java.awt.Image;
  * @author santi698
  *
  */
-public class FloatingBox extends CellContent implements Walkable {
-	@Override
+public class FloatingBox extends ContainerCell {
+	
 	public Image getImage() {
 		// TODO Auto-generated method stub
 		return null;

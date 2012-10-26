@@ -7,9 +7,9 @@ import java.awt.Image;
  * @author santi698
  *
  */
-public class Interruptor extends CellContent implements Walkable {
+public class Interruptor extends ContainerCell {
 
-	@Override
+	
 	public Image getImage() {
 		// TODO Auto-generated method stub
 		return null;

@@ -8,14 +8,14 @@ import java.awt.Image;
  * @author santi698
  *
  */
-public class Destino extends CellContent implements Walkable {
+public class Destino extends ContainerCell {
 
 	private boolean visible;
+	
 	public boolean isVisible() {
-		//TODO method stub
-		return false;
+		return visible;
 	}
-	@Override
+	
 	public Image getImage() {
 		// TODO Auto-generated method stub
 		return null;

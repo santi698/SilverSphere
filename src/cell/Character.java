@@ -2,9 +2,8 @@ package cell;
 
 import java.awt.Image;
 
-public class Character extends CellContent implements Movable {
+public class Character extends CellContent {
 
-	@Override
 	public void move(Direction direction) {
 		// TODO Auto-generated method stub
 
