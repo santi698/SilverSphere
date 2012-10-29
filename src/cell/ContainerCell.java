@@ -2,7 +2,7 @@ package cell;
 import cell.Cell;
 
 
-public class ContainerCell extends Cell {
+public abstract class ContainerCell extends Cell {
 	private CellContent content;
 	@Override
 	public boolean isEmpty() {
@@ -15,6 +15,4 @@ public class ContainerCell extends Cell {
 		return content;
 	}
 	
-	
-
 }

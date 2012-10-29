@@ -7,7 +7,7 @@ import java.awt.Image;
  * @author santi698
  *
  */
-public class FloatingBox extends ContainerCell {
+public class FloatingBox extends Cell {
 	
 	public Image getImage() {
 		// TODO Auto-generated method stub

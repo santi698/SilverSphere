@@ -8,18 +8,14 @@ import java.awt.Image;
  * @author santi698
  *
  */
-public class Destino extends ContainerCell {
+public class Destino extends Cell {
 
 	private boolean visible;
 	
 	public boolean isVisible() {
 		return visible;
 	}
-	
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//FIXME no muestra el contenido
 	public String toString() {
 		return "Destino";
 	}

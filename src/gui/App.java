@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import board.Board;
 
-import cell.ContainerCell;
+import cell.Cell;
 import cell.Direction;
 
 import sample.SampleFrame;
@@ -35,10 +35,5 @@ public class App {
 		frame.setVisible(true);
 	}
 	
-	public static void drawCell (cell.Cell cell, int row, int column, gui.BoardPanel panel) {
-		panel.setImage(row, column, cell.getImage());
-		if (cell instanceof ContainerCell)
-			panel.appendImage(row, column, ((ContainerCell) cell).getContent().getImage());
-	}
 
 }

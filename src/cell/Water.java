@@ -1,19 +1,12 @@
 package cell;
 
-import java.awt.Image;
-
 /**
  * Representa agua
  * @author santi698
  *
  */
-public class Water extends ContainerCell {
+public class Water extends Cell {
 	
-	
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public String toString() {
 		return "Water";
 	}
