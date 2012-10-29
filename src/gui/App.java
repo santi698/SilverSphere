@@ -4,7 +4,8 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 
-import cell.Board;
+import board.Board;
+
 import cell.ContainerCell;
 import cell.Direction;
 

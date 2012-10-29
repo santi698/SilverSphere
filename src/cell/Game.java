@@ -1,4 +1,7 @@
 package cell;
+
+import board.Board;
+
 /**
  * Clase que realiza tareas relacionadas al juego en si
  * @author santi698

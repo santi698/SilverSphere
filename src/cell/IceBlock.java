@@ -23,5 +23,8 @@ public class IceBlock extends CellContent {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String toString() {
+		return "Ice Block";
+	}
 
 }

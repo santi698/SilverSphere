@@ -20,4 +20,7 @@ public class Destino extends ContainerCell {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String toString() {
+		return "Destino";
+	}
 }

@@ -8,4 +8,8 @@ public abstract class Cell {
 	public Image getImage() {
 		return image;
 	}
+	public CellContent getContent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

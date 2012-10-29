@@ -4,10 +4,12 @@ import static org.junit.Assert.fail;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Test;
 
-import cell.Board;
+import board.Board;
+
 
 public class TestParse {
 	
@@ -18,15 +20,17 @@ public class TestParse {
 		FileReader inStream = null;
 		char[] cbuf = new char[250];
 		try {
-			inStream = new FileReader("/home/santi698/silversphere/SilverSphere/resources/levels/INV01.txt");
+			inStream = new FileReader("./resources/levels/INV01.txt");
 			inStream.read(cbuf);
-			Board.parse(cbuf.toString());
 		} 
 		finally {
 			if (inStream != null) {
 				inStream.close();
 			}
 		}
+		String[] sArr = (new String(cbuf)).split("\n"); //WTF pone como ultimo string del arreglo al original completo o.O
+		Board b = new Board(sArr);
+		System.out.println(b);
 		fail("In development");
 	}
 

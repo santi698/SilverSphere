@@ -32,5 +32,10 @@ public class Box extends CellContent {
 	public Image getImage() {
 		return image;
 	}
+	
+	@Override
+	public String toString() {
+		return "Box";
+	}
 
 }

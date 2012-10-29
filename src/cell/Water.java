@@ -14,4 +14,7 @@ public class Water extends ContainerCell {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String toString() {
+		return "Water";
+	}
 }

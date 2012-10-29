@@ -13,4 +13,7 @@ public class FloatingBox extends ContainerCell {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String toString() {
+		return "Floating Box";
+	}
 }
