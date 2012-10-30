@@ -26,17 +26,29 @@ public class Board {
 		dataMatrix = new Cell[rows][columns];
 	}
 	//TODO toda la clase basicamente :P
-	public Board(String[] s) {
+	public Board(String[] s) throws InvalidLevelException {
 		this(s.length -1 ,s[0].length()); //FIXME Parche feo
+		int chCount = 0, dCount = 0, ibCount = 0, intCount = 0;
 		for (int i = 0; i < rows; i++) {
 			if (s[i].length() != columns)
-				throw new RuntimeException(); //FIXME provisorio
+				throw new InvalidLevelException("El tablero debe ser rectangular."); //FIXME provisorio
 			for (int j = 0; j < columns; j++) {
 				char c = s[i].charAt(j);
+				switch (c) {
+				case '@': chCount++; break;
+				case 'G': dCount++; break;
+				case 'C': ibCount++; break;
+				case 'K': intCount++; break;
+				}
 				dataMatrix[i][j] = charToCell(c);
 			}
 		}
-	}
+		if (chCount != 1 || ibCount == 0 || dCount != 1 || intCount > 1)
+			throw new InvalidLevelException("Debe haber exactamente un personaje, un destino " +
+					",al menos un cubo de hielo, y no más de un interruptor." +
+					"\n Personajes: " + chCount + ", Destinos: " + dCount + ", Cubos de hielo: " +
+							"" + ibCount + ", Interruptores:" + intCount + ".");
+		}
 	private static Cell charToCell(char c) {
 		switch (c) {
 		case 'T': return new Tree();

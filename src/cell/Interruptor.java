@@ -5,10 +5,10 @@ package cell;
  * @author santi698
  *
  */
-public class Interruptor extends Cell {
+public class Interruptor extends ContainerCell {
 
 	//FIXME no muestra el contenido
 	public String toString() {
-		return "Interruptor";
+		return "Interruptor + " + this.getContent();
 	}
 }
