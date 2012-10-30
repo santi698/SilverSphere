@@ -10,13 +10,13 @@ import org.junit.rules.ExpectedException;
 import board.Board;
 import board.InvalidLevelException;
 
-public class TestParse {
+public class TestParse {	
 	
-	private String [] readFileToStringArray(String file) throws IOException{
+	private String [] readFileToStringArray (String file) throws IOException{
 		FileReader inStream = null;
 		char[] cbuf = new char[250];
 		try {
-			inStream = new FileReader(file);
+			inStream = new FileReader (file);
 			inStream.read(cbuf);
 		} 
 		finally {
