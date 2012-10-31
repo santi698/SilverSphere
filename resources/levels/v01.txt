@@ -1,7 +1,10 @@
 TTTTTTTTTTTTTTTTTTTT
-TTTTT@    K ########
-#####BT #BC#########
-######B#      ######
-TT   #####B     TTTT
+TTTTT@      #######T
+T####TTTTBC########T
+T########     #####T
+TT   #### B     TTTT
 G    ####B   TTTTTTT
-TTTT  #B #          
+TTTT  #B #      ###T
+TTTTTT############ T
+T  B           #  KT
+TTTTTTTTTTTTTTTTTTTT

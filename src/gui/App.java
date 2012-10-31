@@ -11,8 +11,8 @@ import board.Board;
 import board.InvalidLevelException;
 
 import cell.*;
+import cell.Character;
 
-import sample.SampleFrame;
 
 public class App {
 
@@ -23,7 +23,8 @@ public class App {
 		for (int i = 0; i < board.rows; i++) {
 			for (int j = 0; j < board.columns; j++) {
 				Cell c = board.getCell(i, j);
-				panel.setImage(i, j, cellToImage(c));
+				panel.setImage(i, j, ImageUtils.loadImage("./resources/images/cell.png"));
+				panel.appendImage(i, j, cellToImage(c));
 				if (c instanceof ContainerCell)
 					panel.appendImage(i, j, cellContentToImage(c.getContent()));
 			}
@@ -36,8 +37,10 @@ public class App {
 		if (content instanceof Box) {
 			return ImageUtils.colorize(ImageUtils.loadImage("./resources/images/box.png"),new Color(171, 136, 51));
 		}
-		else
+		if (content instanceof Character)
 			return ImageUtils.loadImage("./resources/images/player.png");
+		else
+			return null;
 	}
 	private static Image cellToImage(Cell c) throws IOException {
 		
@@ -77,20 +80,17 @@ public class App {
 
 	
 	public static void main(String[] args) throws IOException {
-		gui.BoardPanel panel = new gui.BoardPanel(20, 20, 5);
 		String [] s = readFileToStringArray("./resources/levels/v01.txt");
 		try {
 			Board b = new Board(s);
+			gui.BoardPanel panel = new gui.BoardPanel(b.rows, b.columns, 30);
 			setCellContents(b, panel);
+			GameFrame frame = new GameFrame(panel);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setVisible(true);
 		} catch (InvalidLevelException e) {
 			System.out.println(e.getMessage());
 		}
-		SampleFrame frame = new SampleFrame();
-		Image image = null;
-		panel.setImage(0, 0, image);
-		frame.add(panel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 	}
 	
 
