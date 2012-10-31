@@ -27,10 +27,8 @@ public class TestParse {
 		String[] sArr = (new String(cbuf)).split("\n"); //WTF pone como ultimo string del arreglo al original completo o.O
 		return sArr;
 	}
-	@Rule
-	public ExpectedException e = ExpectedException.none();
 	@Test
-	public void testInvalid() throws IOException, InvalidLevelException {
+	public void testInvalid() throws IOException {
 		String[] files = {"./resources/levels/INV01.txt", "./resources/levels/INV02.txt",
 				"./resources/levels/INV03.txt", "./resources/levels/INV04.txt",
 				"./resources/levels/INV05.txt", "./resources/levels/INV06.txt",
@@ -40,9 +38,12 @@ public class TestParse {
 			System.out.println("File: " + file);
 			String[] sArr = readFileToStringArray(file);
 			Board b;
-			e.expect(InvalidLevelException.class);
-			b = new Board(sArr);
-			System.out.println(b);
+			try {
+				b = new Board(sArr);
+				System.out.println(b);
+			} catch (InvalidLevelException e1) {
+				System.out.println(e1.getMessage());
+			}
 		}
 	}
 	
