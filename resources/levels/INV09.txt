@@ -1,6 +1,6 @@
 TTTTT    TBBBBT
 BB    GTT   ##T
-###   k#######T
+###   K#######T
 B    ######   T
 T      C######T
 T           ##T 

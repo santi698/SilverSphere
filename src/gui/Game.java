@@ -14,7 +14,7 @@ import cell.*;
 import cell.Character;
 
 
-public class App {
+public class Game {
 
 	/**
 	 * @param args
@@ -45,9 +45,9 @@ public class App {
 	private static Image cellToImage(Cell c) throws IOException {
 		
 		if (c instanceof EmptyCell) {
-			return ImageUtils.loadImage("./resources/images/cell.png");
+			return null;
 		}
-		if (c instanceof Destino) {
+		if (c instanceof Destino && ((Destino) c).isVisible()) {
 			return ImageUtils.loadImage("./resources/images/target.png");
 		}
 		if (c instanceof Interruptor) {
@@ -59,8 +59,11 @@ public class App {
 		if (c instanceof Tree) {
 			return ImageUtils.loadImage("./resources/images/tree.png");
 		}
-		else
+		if (c instanceof FloatingBox)
 			return ImageUtils.colorize(ImageUtils.loadImage("./resources/images/box.png"), new Color(128, 178, 191));
+		else
+			return null;
+//			throw new RuntimeException(); //TODO Crear una excepción descriptiva.
 	}
 	private static String [] readFileToStringArray (String file) throws IOException{
 		FileReader inStream = null;

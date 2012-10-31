@@ -1,10 +1,10 @@
 TTTTTTTTTTTTTTTTTTTT
 TTTTT@      #######T
-T####TTTTBC########T
+T####TTTT BC#######T
 T########     #####T
 TT   #### B     TTTT
 G    ####B   TTTTTTT
 TTTT  #B #      ###T
-TTTTTT############ T
-T  B           #  KT
+T   TT############ T
+T B            #  KT
 TTTTTTTTTTTTTTTTTTTT
