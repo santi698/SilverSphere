@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.Arrays;
 
 import cell.*;
@@ -12,7 +13,10 @@ import cell.Character;
  * @author santi698
  *
  */
-public class Board {
+public class Board implements Serializable{
+
+	private static final long serialVersionUID = -6426728114234690441L;
+
 	/**
 	 * El contenido del tablero de modela con una matriz de listas, 
 	 * donde cada elemento es una capa del tablero
@@ -25,13 +29,13 @@ public class Board {
 		this.columns = columns;
 		dataMatrix = new Cell[rows][columns];
 	}
-	//TODO toda la clase basicamente :P
+	//TODO No se que falta, pero algo debe faltar.
 	public Board(String[] s) throws InvalidLevelException {
 		this(s.length -1 ,s[0].length()); //FIXME Parche feo
 		int chCount = 0, dCount = 0, ibCount = 0, intCount = 0;
 		for (int i = 0; i < rows; i++) {
 			if (s[i].length() != columns)
-				throw new InvalidLevelException("El tablero debe ser rectangular."); //FIXME provisorio
+				throw new InvalidLevelException("El tablero debe ser rectangular.");
 			for (int j = 0; j < columns; j++) {
 				char c = s[i].charAt(j);
 				switch (c) {
@@ -49,7 +53,7 @@ public class Board {
 					"\n Personajes: " + chCount + ", Destinos: " + dCount + ", Cubos de hielo: " +
 							"" + ibCount + ", Interruptores:" + intCount + ".");
 		}
-	private static Cell charToCell(char c) {
+	private static Cell charToCell(char c) throws InvalidLevelException {
 		switch (c) {
 		case 'T': return new Tree();
 		case '#': return new Water();
@@ -59,7 +63,7 @@ public class Board {
 		case 'G': return new Destino();
 		case '@': return new EmptyCell(new Character());
 		case ' ': return new EmptyCell();
-		default: return null;
+		default: throw new InvalidLevelException("Caracter Inválido.");
 		}
 	}
 	public Cell getCell(int x, int y) {
@@ -74,7 +78,6 @@ public class Board {
 				if (dataMatrix[i][j].getContent() instanceof Character)
 					return new Point (j, i);
 			}
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
