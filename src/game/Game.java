@@ -1,4 +1,4 @@
-package provisorio;
+package game;
 
 import javax.swing.JFrame;
 

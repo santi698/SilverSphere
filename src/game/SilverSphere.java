@@ -1,4 +1,4 @@
-package provisorio;
+package game;
 
 public class SilverSphere {
 

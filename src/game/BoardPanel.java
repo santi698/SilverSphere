@@ -1,4 +1,4 @@
-package provisorio;
+package game;
 
 import java.awt.Graphics;
 import java.awt.Image;
