@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -48,7 +50,12 @@ public class GameFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				loadGameButton_actionPerformed(e);
+				try {
+					loadGameButton_actionPerformed(e);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -64,17 +71,10 @@ public class GameFrame extends JFrame {
 		menuPanel.add(loadGameButton);
 		menuPanel.add(exitButton);
 		add(menuPanel);
-		setSize(300, 500);
-		center();
+		setSizeAndCenter(300, 500);
 		setVisible(true);
 	}
 	
-	private void center() {
-		Toolkit t = getToolkit();
-		Dimension d = t.getScreenSize();
-		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);		
-	}
-
 	void newGameButton_actionPerformed(ActionEvent e) {
 		File f = askForFile();
 		try {
@@ -85,8 +85,7 @@ public class GameFrame extends JFrame {
 			boardPanel.setBackground(Color.WHITE);
 			boardPanel.setVisible(true);
 			add(boardPanel);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
-			center();
+			setSizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -99,9 +98,34 @@ public class GameFrame extends JFrame {
 		
 		
 	}
-	void loadGameButton_actionPerformed(ActionEvent e) {
-		//TODO
-		//File f = askForFile();
+	private void setSizeAndCenter(int width, int height) {
+		super.setSize(width, height);
+		Toolkit t = getToolkit();
+		Dimension d = t.getScreenSize();
+		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);		
+
+	}
+
+	void loadGameButton_actionPerformed(ActionEvent e) throws IOException {
+		File f = askForFile();
+		ObjectInputStream inStream = null;
+		try {
+			inStream = new ObjectInputStream(new FileInputStream(f));
+			board = (Board) inStream.readObject();
+			boardPanel = (BoardPanel) inStream.readObject();
+			remove(menuPanel);
+			add(boardPanel);
+			repaint();
+			
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
+					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
+		}
+		finally {
+			if (inStream != null)
+				inStream.close();
+		}
 	}
 	File askForFile() {
 		JFileChooser chooser = new JFileChooser("./resources/levels");
