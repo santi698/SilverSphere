@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.StreamCorruptedException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -76,7 +77,7 @@ public class GameFrame extends JFrame {
 	}
 	
 	void newGameButton_actionPerformed(ActionEvent e) {
-		File f = askForFile();
+		File f = askForFile("./resources/levels");
 		try {
 			board = loadLevelFromFile(f);
 			remove(menuPanel);
@@ -107,7 +108,7 @@ public class GameFrame extends JFrame {
 	}
 
 	void loadGameButton_actionPerformed(ActionEvent e) throws IOException {
-		File f = askForFile();
+		File f = askForFile("./saved");
 		ObjectInputStream inStream = null;
 		try {
 			inStream = new ObjectInputStream(new FileInputStream(f));
@@ -115,10 +116,13 @@ public class GameFrame extends JFrame {
 			boardPanel = (BoardPanel) inStream.readObject();
 			remove(menuPanel);
 			add(boardPanel);
+			setSizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();
 			
 		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
+					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
+		} catch (StreamCorruptedException e1) {
 			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
 					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
 		}
@@ -127,8 +131,8 @@ public class GameFrame extends JFrame {
 				inStream.close();
 		}
 	}
-	File askForFile() {
-		JFileChooser chooser = new JFileChooser("./resources/levels");
+	File askForFile(String path) {
+		JFileChooser chooser = new JFileChooser(path);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 			return chooser.getSelectedFile();
 		return null;
