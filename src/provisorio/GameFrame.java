@@ -64,13 +64,17 @@ public class GameFrame extends JFrame {
 		menuPanel.add(loadGameButton);
 		menuPanel.add(exitButton);
 		add(menuPanel);
-		Toolkit t = getToolkit();
-		Dimension d = t.getScreenSize();
 		setSize(300, 500);
-		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);
+		center();
 		setVisible(true);
 	}
 	
+	private void center() {
+		Toolkit t = getToolkit();
+		Dimension d = t.getScreenSize();
+		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);		
+	}
+
 	void newGameButton_actionPerformed(ActionEvent e) {
 		File f = askForFile();
 		try {
@@ -82,6 +86,7 @@ public class GameFrame extends JFrame {
 			boardPanel.setVisible(true);
 			add(boardPanel);
 			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
+			center();
 			repaint();
 		} catch (IOException e1) {
 			e1.printStackTrace();
