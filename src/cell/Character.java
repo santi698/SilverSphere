@@ -7,14 +7,6 @@ import board.Direction;
 
 
 public class Character extends CellContent {
-	private Point position;
-	public Point getPosition() {
-		return position;
-	}
-
-	public void setPosition(Point position) {
-		this.position = position;
-	}
 
 	@Override
 	public String toString() {
@@ -22,9 +14,21 @@ public class Character extends CellContent {
 	}
 
 	public boolean move(Board board, Direction direction) {
-		// TODO Auto-generated method stub
-		return false;
-		
-	}
+		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+		if (nextCell instanceof ContainerCell) {
+			if (!((ContainerCell)nextCell).isEmpty() && 
+					!((ContainerCell)nextCell).getContent().move(board, direction))
+				return false;
+			else {
+				board.getCell(position.x, position.y).setContent(null);
+				nextCell.setContent(this);
+				this.setPosition(new Point(position.x+direction.x, position.y + direction.y));
+				System.out.println("true");
+				return true;
+			}
+		}
+		else
+			return false;
 
+	}
 }

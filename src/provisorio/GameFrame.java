@@ -42,11 +42,13 @@ public class GameFrame extends JFrame {
 	
 	GameFrame() {
 		super("SilverSphere");
-		setSizeAndCenter(300, 500);
+		resizeAndCenter(300, 500);
 		addKeyListener(new KeyAdapter() {
-						
+			int counter = 0;
 			@Override
 			public void keyPressed(KeyEvent e) {
+				counter++;
+				System.out.println("Contador: " + counter);
 				if (boardPanel.isVisible()) {
 					Direction direction = null;
 					switch(e.getKeyCode()) {
@@ -104,11 +106,12 @@ public class GameFrame extends JFrame {
 		menuPanel.add(loadGameButton);
 		menuPanel.add(exitButton);
 		add(menuPanel);
+		setResizable(false);
 		setVisible(true);
 	}
 	
 	void newGameButton_actionPerformed(ActionEvent e) {
-		File f = askForFile("./resources/levels");
+		File f = askForFile("resources/levels");
 		try {
 			board = loadLevelFromFile(f);
 			remove(menuPanel);
@@ -117,8 +120,8 @@ public class GameFrame extends JFrame {
 			boardPanel.setBackground(Color.WHITE);
 			boardPanel.setVisible(true);
 			add(boardPanel);
-			setSizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
-			repaint();
+			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
+			boardPanel.repaint();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} catch (InvalidLevelException e1) {
@@ -130,16 +133,17 @@ public class GameFrame extends JFrame {
 		
 		
 	}
-	private void setSizeAndCenter(int width, int height) {
-		super.setSize(width, height);
+	private void resizeAndCenter(int width, int height) {
+		setResizable(true);
+		setSize(width, height);
 		Toolkit t = getToolkit();
 		Dimension d = t.getScreenSize();
 		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);		
-
+		setResizable(false);
 	}
 
 	void loadGameButton_actionPerformed(ActionEvent e) throws IOException {
-		File f = askForFile("./saved");
+		File f = askForFile("saved");
 		ObjectInputStream inStream = null;
 		try {
 			inStream = new ObjectInputStream(new FileInputStream(f));
@@ -147,7 +151,7 @@ public class GameFrame extends JFrame {
 			boardPanel = (BoardPanel) inStream.readObject();
 			remove(menuPanel);
 			add(boardPanel);
-			setSizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
+			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();
 			
 		} catch (ClassNotFoundException e1) {
@@ -189,7 +193,7 @@ public class GameFrame extends JFrame {
 	public static void setCellContents (Board board, BoardPanel panel) throws IOException{
 		for (int i = 0; i < board.rows; i++) {
 			for (int j = 0; j < board.columns; j++) {
-				Cell c = board.getCell(i, j);
+				Cell c = board.getCell(j, i);
 				panel.setImage(i, j, ImageUtils.loadImage("./resources/images/cell.png"));
 				panel.appendImage(i, j, GameImages.cellImages.get(c.getClass()));
 				if (c instanceof ContainerCell && c.getContent() != null)

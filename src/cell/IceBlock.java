@@ -2,6 +2,7 @@ package cell;
 
 import java.awt.Image;
 
+import board.Board;
 import board.Direction;
 
 /**
@@ -16,9 +17,9 @@ public class IceBlock extends CellContent {
 	 * es Movable o hasta alcanzar uno de tipo Water
 	 */
 	
-	public void move(Direction direction) {
+	public boolean move(Board board, Direction direction) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 	
 	public Image getImage() {

@@ -7,10 +7,10 @@ import java.util.Arrays;
 import cell.Box;
 import cell.Cell;
 import cell.Character;
-import cell.Target;
 import cell.EmptyCell;
 import cell.IceBlock;
 import cell.IceBlockTarget;
+import cell.Target;
 import cell.Tree;
 import cell.Water;
 
@@ -33,6 +33,9 @@ public class Board implements Serializable{
 	private Character character;
 	private Cell targetCell;
 	
+	public Cell getTargetCell() {
+		return targetCell;
+	}
 	Board(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
@@ -50,10 +53,19 @@ public class Board implements Serializable{
 				Cell actualCell = charToCell(c);
 				dataMatrix[i][j] = actualCell;
 				switch (c) {
-				case '@': chCount++; character = (Character)actualCell.getContent(); break;
+				case '@': 
+					chCount++;
+					character = (Character)actualCell.getContent();
+					character.setPosition(new Point(j, i));
+					break;
 				case 'G': dCount++; targetCell = actualCell; break;
-				case 'C': ibCount++; break;
+				case 'C': 
+					ibCount++;
+					actualCell.getContent().setPosition(new Point(j, i));
+					break;
+					
 				case 'K': intCount++; break;
+				case 'B': actualCell.getContent().setPosition(new Point(j, i));
 				}
 			}
 		}
@@ -77,10 +89,10 @@ public class Board implements Serializable{
 		}
 	}
 	public Cell getCell(int x, int y) {
-		return dataMatrix[x][y];
+		return dataMatrix[y][x];
 	}
-	public Cell getCell(Point p) {
-		return getCell(p.x, p.y);
+	public void setCell(int x, int y, Cell cell) {
+		dataMatrix[y][x] = cell;
 	}
 	@Override
 	public String toString() {
@@ -92,7 +104,7 @@ public class Board implements Serializable{
 		return s.toString();
 	}
 	public boolean moveCharacter(Direction direction) {
-		// TODO Auto-generated method stub
+		System.out.println("move character");
 		return character.move(this, direction);
 	}
 	

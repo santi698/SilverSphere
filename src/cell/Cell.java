@@ -2,10 +2,10 @@ package cell;
 
 
 public abstract class Cell {
-	private CellContent content;
+	private CellContent content = null;
 	
 	public boolean isEmpty() {
-		return content != null;
+		return content == null;
 	}
 	public void setContent(CellContent c) {
 		content = c;
