@@ -77,8 +77,9 @@ public class Game {
 				inStream.close();
 			}
 		}
-		String[] sArr = (new String(cbuf)).split("\n"); //WTF pone como ultimo string del arreglo al original completo o.O
-		return sArr;
+		String sArr = (new String(cbuf)); //WTF pone como ultimo string del arreglo al original completo o.O
+		String[] sArr3 = sArr.split("\n");
+		return sArr3;
 	}
 
 	

@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.junit.Rule;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -35,6 +36,7 @@ public class TestParse {
 				"./resources/levels/INV07.txt", "./resources/levels/INV08.txt",
 				"./resources/levels/INV09.txt", "./resources/levels/INV10.txt",};
 		for (String file : files) {
+			boolean flag = false;
 			System.out.println("File: " + file);
 			String[] sArr = readFileToStringArray(file);
 			Board b;
@@ -43,7 +45,9 @@ public class TestParse {
 				System.out.println(b);
 			} catch (InvalidLevelException e1) {
 				System.out.println(e1.getMessage());
+				flag = true;
 			}
+			assertTrue(flag);
 		}
 	}
 	
