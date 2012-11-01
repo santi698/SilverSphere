@@ -1,4 +1,4 @@
-package cell;
+package board;
 /**
  * Enumerativo para agrupar los tipos de movimientos posibles
  * @author santi698

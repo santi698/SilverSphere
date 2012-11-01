@@ -3,6 +3,7 @@ package cell;
 import java.awt.Point;
 
 import board.Board;
+import board.Direction;
 
 
 public class Character extends CellContent {

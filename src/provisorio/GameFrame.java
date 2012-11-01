@@ -22,10 +22,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import board.Board;
+import board.Direction;
 import board.InvalidLevelException;
 import cell.Cell;
 import cell.ContainerCell;
-import cell.Direction;
 
 public class GameFrame extends JFrame {
 

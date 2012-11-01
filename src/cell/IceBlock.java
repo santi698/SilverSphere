@@ -2,6 +2,8 @@ package cell;
 
 import java.awt.Image;
 
+import board.Direction;
+
 /**
  * Clase que representa un cubo de hielo
  * @author santi698

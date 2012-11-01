@@ -7,11 +7,10 @@ import java.util.Arrays;
 import cell.Box;
 import cell.Cell;
 import cell.Character;
-import cell.Destino;
-import cell.Direction;
+import cell.Target;
 import cell.EmptyCell;
 import cell.IceBlock;
-import cell.Interruptor;
+import cell.IceBlockTarget;
 import cell.Tree;
 import cell.Water;
 
@@ -68,10 +67,10 @@ public class Board implements Serializable{
 		switch (c) {
 		case 'T': return new Tree();
 		case '#': return new Water();
-		case 'K': return new Interruptor();
+		case 'K': return new IceBlockTarget();
 		case 'C': return new EmptyCell(new IceBlock());
 		case 'B': return new EmptyCell(new Box());
-		case 'G': return new Destino();
+		case 'G': return new Target();
 		case '@': return new EmptyCell(new Character());
 		case ' ': return new EmptyCell();
 		default: throw new InvalidLevelException("Caracter Inválido.");

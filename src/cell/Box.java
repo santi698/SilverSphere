@@ -1,6 +1,5 @@
 package cell;
 
-import java.awt.Color;
 
 
 /** Representa una caja que sera contenida en una celda

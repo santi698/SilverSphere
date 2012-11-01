@@ -1,6 +1,5 @@
 package cell;
 
-import java.awt.Image;
 
 /**
  * Representa la celda de destino, la celda a la que debe llegar
@@ -8,7 +7,7 @@ import java.awt.Image;
  * @author santi698
  *
  */
-public class Destino extends Cell {
+public class Target extends ContainerCell {
 
 	private boolean visible;
 	

@@ -5,7 +5,7 @@ package cell;
  * @author santi698
  *
  */
-public class Water extends Cell {
+public class Water extends ContainerCell {
 	
 	public String toString() {
 		return "Water";
