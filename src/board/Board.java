@@ -10,6 +10,7 @@ import cell.Character;
 import cell.EmptyCell;
 import cell.IceBlock;
 import cell.IceBlockTarget;
+import cell.MoveReturnValue;
 import cell.Target;
 import cell.Tree;
 import cell.Water;
@@ -103,7 +104,7 @@ public class Board implements Serializable{
 		}
 		return s.toString();
 	}
-	public boolean moveCharacter(Direction direction) {
+	public MoveReturnValue moveCharacter(Direction direction) {
 		System.out.println("move character");
 		return character.move(this, direction);
 	}

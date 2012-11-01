@@ -5,7 +5,6 @@ import java.awt.Point;
 import board.Board;
 import board.Direction;
 
-
 public class Character extends CellContent {
 
 	@Override
@@ -13,22 +12,27 @@ public class Character extends CellContent {
 		return "Character";
 	}
 
-	public boolean move(Board board, Direction direction) {
+	public MoveReturnValue move(Board board, Direction direction) {
 		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
 		if (nextCell instanceof ContainerCell) {
 			if (!((ContainerCell)nextCell).isEmpty() && 
-					!((ContainerCell)nextCell).getContent().move(board, direction))
-				return false;
+					(((ContainerCell)nextCell).getContent().move(board, direction)
+							== MoveReturnValue.UNABLE_TO_MOVE))
+				return MoveReturnValue.UNABLE_TO_MOVE;
 			else {
 				board.getCell(position.x, position.y).setContent(null);
 				nextCell.setContent(this);
-				this.setPosition(new Point(position.x+direction.x, position.y + direction.y));
+				this.setPosition(new Point(position.x + direction.x, position.y + direction.y));
 				System.out.println("true");
-				return true;
+				if (nextCell instanceof Water)
+					return MoveReturnValue.WATER_REACHED;
+				if (nextCell instanceof Target && ((Target)nextCell).isVisible())
+					return MoveReturnValue.TARGET_REACHED;
+				return MoveReturnValue.MOVED;
 			}
 		}
 		else
-			return false;
+			return MoveReturnValue.UNABLE_TO_MOVE;
 
 	}
 }

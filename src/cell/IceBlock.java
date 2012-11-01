@@ -17,9 +17,9 @@ public class IceBlock extends CellContent {
 	 * es Movable o hasta alcanzar uno de tipo Water
 	 */
 	
-	public boolean move(Board board, Direction direction) {
+	public MoveReturnValue move(Board board, Direction direction) {
 		// TODO Auto-generated method stub
-		return false;
+		return MoveReturnValue.UNABLE_TO_MOVE;
 	}
 	
 	public Image getImage() {

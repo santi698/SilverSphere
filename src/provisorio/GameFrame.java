@@ -26,6 +26,7 @@ import board.Direction;
 import board.InvalidLevelException;
 import cell.Cell;
 import cell.ContainerCell;
+import cell.MoveReturnValue;
 
 public class GameFrame extends JFrame {
 
@@ -39,35 +40,15 @@ public class GameFrame extends JFrame {
 	JButton newGameButton = new JButton("New Game");
 	JButton loadGameButton = new JButton("Load Game");
 	JButton exitButton = new JButton("Exit");
+	File actualLevelFile = null;
 	
 	GameFrame() {
 		super("SilverSphere");
 		resizeAndCenter(300, 500);
 		addKeyListener(new KeyAdapter() {
-			int counter = 0;
 			@Override
 			public void keyPressed(KeyEvent e) {
-				counter++;
-				System.out.println("Contador: " + counter);
-				if (boardPanel.isVisible()) {
-					Direction direction = null;
-					switch(e.getKeyCode()) {
-					case KeyEvent.VK_UP: direction = Direction.UP; break;
-					case KeyEvent.VK_DOWN: direction = Direction.DOWN; break;
-					case KeyEvent.VK_RIGHT: direction = Direction.RIGHT; break;
-					case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
-					}
-					if (direction != null) {
-						if (board.moveCharacter(direction))
-						try {
-							setCellContents(board, boardPanel);
-							repaint();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-						
-					}
-				}
+				game_keyPressed(e);
 
 			}
 		});
@@ -77,6 +58,7 @@ public class GameFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				actualLevelFile = askForFile("resources/levels");
 				newGameButton_actionPerformed(e);
 			}
 		});
@@ -110,11 +92,45 @@ public class GameFrame extends JFrame {
 		setVisible(true);
 	}
 	
+	protected void game_keyPressed(KeyEvent e) {
+		{
+			int counter = 0;
+			counter++;
+			System.out.println("Contador: " + counter);
+			if (boardPanel.isVisible()) {
+				Direction direction = null;
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_UP: direction = Direction.UP; break;
+				case KeyEvent.VK_DOWN: direction = Direction.DOWN; break;
+				case KeyEvent.VK_RIGHT: direction = Direction.RIGHT; break;
+				case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
+				}
+				if (direction != null) {
+					MoveReturnValue returnValue = board.moveCharacter(direction);
+					if (returnValue != MoveReturnValue.UNABLE_TO_MOVE)
+					try {
+						setCellContents(board, boardPanel);
+						repaint();
+						if (returnValue == MoveReturnValue.WATER_REACHED) {
+							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
+							boardPanel.setVisible(false);
+							newGameButton_actionPerformed(null);
+						}
+						if (returnValue == MoveReturnValue.TARGET_REACHED)
+							JOptionPane.showMessageDialog(this, "Has ganado!");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		}
+	}
+
 	void newGameButton_actionPerformed(ActionEvent e) {
-		File f = askForFile("resources/levels");
 		try {
-			board = loadLevelFromFile(f);
-			remove(menuPanel);
+			board = loadLevelFromFile(actualLevelFile);
+			menuPanel.setVisible(false);
 			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
 			setCellContents(board, boardPanel);
 			boardPanel.setBackground(Color.WHITE);
@@ -149,7 +165,7 @@ public class GameFrame extends JFrame {
 			inStream = new ObjectInputStream(new FileInputStream(f));
 			board = (Board) inStream.readObject();
 			boardPanel = (BoardPanel) inStream.readObject();
-			remove(menuPanel);
+			menuPanel.setVisible(false);
 			add(boardPanel);
 			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();

@@ -13,7 +13,7 @@ import board.Direction;
  */
 public abstract class CellContent {
 	public Point position = null;
-	public abstract boolean move(Board board, Direction direction);
+	public abstract MoveReturnValue move(Board board, Direction direction);
 
 	public void setPosition(Point point) {
 		position = point;
