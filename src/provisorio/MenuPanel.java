@@ -10,5 +10,6 @@ public class MenuPanel extends Box {
 	MenuPanel() {
 		super(BoxLayout.Y_AXIS);
 		setSize(300, 500);
+		
 	}
 }

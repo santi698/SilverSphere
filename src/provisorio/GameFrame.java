@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +25,7 @@ import board.Board;
 import board.InvalidLevelException;
 import cell.Cell;
 import cell.ContainerCell;
+import cell.Direction;
 
 public class GameFrame extends JFrame {
 
@@ -36,8 +39,37 @@ public class GameFrame extends JFrame {
 	JButton newGameButton = new JButton("New Game");
 	JButton loadGameButton = new JButton("Load Game");
 	JButton exitButton = new JButton("Exit");
+	
 	GameFrame() {
 		super("SilverSphere");
+		setSizeAndCenter(300, 500);
+		addKeyListener(new KeyAdapter() {
+						
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (boardPanel.isVisible()) {
+					Direction direction = null;
+					switch(e.getKeyCode()) {
+					case KeyEvent.VK_UP: direction = Direction.UP; break;
+					case KeyEvent.VK_DOWN: direction = Direction.DOWN; break;
+					case KeyEvent.VK_RIGHT: direction = Direction.RIGHT; break;
+					case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
+					}
+					if (direction != null) {
+						if (board.moveCharacter(direction))
+						try {
+							setCellContents(board, boardPanel);
+							repaint();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						
+					}
+				}
+
+			}
+		});
+
 		
 		newGameButton.addActionListener(new ActionListener() {
 			
@@ -72,7 +104,6 @@ public class GameFrame extends JFrame {
 		menuPanel.add(loadGameButton);
 		menuPanel.add(exitButton);
 		add(menuPanel);
-		setSizeAndCenter(300, 500);
 		setVisible(true);
 	}
 	

@@ -4,8 +4,16 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import cell.*;
+import cell.Box;
+import cell.Cell;
 import cell.Character;
+import cell.Destino;
+import cell.Direction;
+import cell.EmptyCell;
+import cell.IceBlock;
+import cell.Interruptor;
+import cell.Tree;
+import cell.Water;
 
 /** 
  * Clase que representa el tablero de juego
@@ -23,7 +31,7 @@ public class Board implements Serializable{
 	 */
 	public final int rows, columns;
 	private Cell[][] dataMatrix;
-	private Cell charCell;
+	private Character character;
 	private Cell targetCell;
 	
 	Board(int rows, int columns) {
@@ -43,7 +51,7 @@ public class Board implements Serializable{
 				Cell actualCell = charToCell(c);
 				dataMatrix[i][j] = actualCell;
 				switch (c) {
-				case '@': chCount++; charCell = actualCell; break;
+				case '@': chCount++; character = (Character)actualCell.getContent(); break;
 				case 'G': dCount++; targetCell = actualCell; break;
 				case 'C': ibCount++; break;
 				case 'K': intCount++; break;
@@ -75,12 +83,6 @@ public class Board implements Serializable{
 	public Cell getCell(Point p) {
 		return getCell(p.x, p.y);
 	}
-	public Cell getCharacter() {
-		return charCell;
-	}
-	public Cell getTarget() {
-		return targetCell;
-	}
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder();
@@ -89,6 +91,10 @@ public class Board implements Serializable{
 			s.append("\n");
 		}
 		return s.toString();
+	}
+	public boolean moveCharacter(Direction direction) {
+		// TODO Auto-generated method stub
+		return character.move(this, direction);
 	}
 	
 }
