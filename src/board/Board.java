@@ -32,7 +32,7 @@ public class Board implements Serializable{
 	public final int rows, columns;
 	private Cell[][] dataMatrix;
 	private Character character;
-	private Cell targetCell;
+	private Target targetCell;
 	
 	public Cell getTargetCell() {
 		return targetCell;
@@ -59,7 +59,7 @@ public class Board implements Serializable{
 					character = (Character)actualCell.getContent();
 					character.setPosition(new Point(j, i));
 					break;
-				case 'G': dCount++; targetCell = actualCell; break;
+				case 'G': dCount++; targetCell = (Target) actualCell; break;
 				case 'C': 
 					ibCount++;
 					actualCell.getContent().setPosition(new Point(j, i));
@@ -105,8 +105,11 @@ public class Board implements Serializable{
 		return s.toString();
 	}
 	public MoveReturnValue moveCharacter(Direction direction) {
-		System.out.println("move character");
 		return character.move(this, direction);
+	}
+	public void setTargetVisible() {
+		targetCell.setVisible();
+		
 	}
 	
 }

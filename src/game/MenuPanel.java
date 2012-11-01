@@ -1,14 +1,12 @@
 package game;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
-public class MenuPanel extends Box {
+public class MenuPanel extends JPanel {
 		
 	private static final long serialVersionUID = 1L;
 
 	MenuPanel() {
-		super(BoxLayout.Y_AXIS);
 		setSize(300, 500);
 		
 	}

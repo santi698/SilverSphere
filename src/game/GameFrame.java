@@ -1,7 +1,9 @@
 package game;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -33,18 +37,24 @@ public class GameFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private static final int CELL_SIZE = 30;
-	
-	BoardPanel boardPanel;
+		
 	Board board;
+	
 	MenuPanel menuPanel = new MenuPanel();
 	JButton newGameButton = new JButton("New Game");
 	JButton loadGameButton = new JButton("Load Game");
 	JButton exitButton = new JButton("Exit");
+		
+	GameMenuPanel gameMenuPanel = new GameMenuPanel();
+	JButton backToMenuButton = new JButton("Back");
+	JButton saveGameButton = new JButton("Save");
+	
+	BoardPanel boardPanel;
+
 	File actualLevelFile = null;
 	
 	GameFrame() {
 		super("SilverSphere");
-		resizeAndCenter(300, 500);
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -70,7 +80,6 @@ public class GameFrame extends JFrame {
 				try {
 					loadGameButton_actionPerformed(e);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -84,19 +93,30 @@ public class GameFrame extends JFrame {
 				
 			}
 		});
+		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		menuPanel.add(newGameButton);
+		menuPanel.add(Box.createVerticalGlue());
 		menuPanel.add(loadGameButton);
+		menuPanel.add(Box.createVerticalGlue());
 		menuPanel.add(exitButton);
-		add(menuPanel);
-		setResizable(false);
+		
+//		gameMenuPanel.setLayout(new BoxLayout(gameMenuPanel, BoxLayout.X_AXIS));
+//		gameMenuPanel.add(backToMenuButton);
+//		gameMenuPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+//		gameMenuPanel.add(saveGameButton);
+//		gameMenuPanel.add(Box.createHorizontalGlue());
+//		gameMenuPanel.setVisible(false);
+		
+		Container contentPane = getContentPane();
+		contentPane.add(menuPanel, BorderLayout.CENTER);
+//		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
+		
+//		setResizable(false);
 		setVisible(true);
 	}
 	
 	protected void game_keyPressed(KeyEvent e) {
 		{
-			int counter = 0;
-			counter++;
-			System.out.println("Contador: " + counter);
 			if (boardPanel.isVisible()) {
 				Direction direction = null;
 				switch(e.getKeyCode()) {
@@ -130,14 +150,16 @@ public class GameFrame extends JFrame {
 	void newGameButton_actionPerformed(ActionEvent e) {
 		try {
 			board = loadLevelFromFile(actualLevelFile);
-			menuPanel.setVisible(false);
 			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
 			setCellContents(board, boardPanel);
 			boardPanel.setBackground(Color.WHITE);
-			boardPanel.setVisible(true);
 			add(boardPanel);
-			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
+			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 45);
 			boardPanel.repaint();
+			menuPanel.setVisible(false);
+			gameMenuPanel.setVisible(true);
+			boardPanel.setVisible(true);
+			setVisible(true);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} catch (InvalidLevelException e1) {
@@ -150,12 +172,12 @@ public class GameFrame extends JFrame {
 		
 	}
 	private void resizeAndCenter(int width, int height) {
-		setResizable(true);
+//		setResizable(true);
 		setSize(width, height);
 		Toolkit t = getToolkit();
 		Dimension d = t.getScreenSize();
 		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);		
-		setResizable(false);
+//		setResizable(false);
 	}
 
 	void loadGameButton_actionPerformed(ActionEvent e) throws IOException {
@@ -166,7 +188,7 @@ public class GameFrame extends JFrame {
 			board = (Board) inStream.readObject();
 			boardPanel = (BoardPanel) inStream.readObject();
 			menuPanel.setVisible(false);
-			add(boardPanel);
+			add(boardPanel, BorderLayout.CENTER);
 			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();
 			
@@ -190,7 +212,7 @@ public class GameFrame extends JFrame {
 	}
 	
 	Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
-		char[] cBuf = new char[250];
+		char[] cBuf = new char[500];
 		String [] sArr;
 		BufferedReader reader = null;
 		try { 

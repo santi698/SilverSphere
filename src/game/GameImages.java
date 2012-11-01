@@ -10,11 +10,11 @@ import cell.Box;
 import cell.Cell;
 import cell.CellContent;
 import cell.Character;
-import cell.Target;
 import cell.EmptyCell;
 import cell.FloatingBox;
 import cell.IceBlock;
 import cell.IceBlockTarget;
+import cell.Target;
 import cell.Tree;
 import cell.Water;
 

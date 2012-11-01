@@ -1,6 +1,7 @@
 package cell;
 
 import java.awt.Image;
+import java.awt.Point;
 
 import board.Board;
 import board.Direction;
@@ -14,12 +15,27 @@ public class IceBlock extends CellContent {
 	/**
 	 * Mueve el cubo de hielo
 	 * El mismo se debe mover hasta alcanzar un objeto que no 
-	 * es Movable o hasta alcanzar uno de tipo Water
+	 * es contenedor o hasta alcanzar uno de tipo Water
 	 */
 	
 	public MoveReturnValue move(Board board, Direction direction) {
-		// TODO Auto-generated method stub
-		return MoveReturnValue.UNABLE_TO_MOVE;
+		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+		if(!(nextCell instanceof ContainerCell) || !nextCell.isEmpty())
+			return MoveReturnValue.UNABLE_TO_MOVE;
+		while(nextCell instanceof ContainerCell && nextCell.isEmpty()) {
+			if (nextCell instanceof Water) {
+				board.getCell(position.x, position.y).setContent(null);
+				return MoveReturnValue.MOVED;
+			}
+			if (nextCell instanceof IceBlockTarget) {
+				board.setTargetVisible();
+			}
+			board.getCell(position.x, position.y).setContent(null);
+			nextCell.setContent(this);
+			setPosition(new Point(position.x + direction.x, position.y + direction.y));
+			nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+		}
+		return MoveReturnValue.MOVED;
 	}
 	
 	public Image getImage() {

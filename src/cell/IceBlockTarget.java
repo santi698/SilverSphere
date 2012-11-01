@@ -7,8 +7,17 @@ package cell;
  */
 public class IceBlockTarget extends ContainerCell {
 
-	//FIXME no muestra el contenido
+	private boolean visible;
+	
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible() {
+		visible = true;
+		
+	}
 	public String toString() {
 		return "Interruptor + " + this.getContent();
 	}
+
 }

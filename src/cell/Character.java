@@ -23,7 +23,6 @@ public class Character extends CellContent {
 				board.getCell(position.x, position.y).setContent(null);
 				nextCell.setContent(this);
 				this.setPosition(new Point(position.x + direction.x, position.y + direction.y));
-				System.out.println("true");
 				if (nextCell instanceof Water)
 					return MoveReturnValue.WATER_REACHED;
 				if (nextCell instanceof Target && ((Target)nextCell).isVisible())
