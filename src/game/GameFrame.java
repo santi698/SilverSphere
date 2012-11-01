@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import board.Board;
 import board.Direction;
@@ -40,12 +41,12 @@ public class GameFrame extends JFrame {
 		
 	Board board;
 	
-	MenuPanel menuPanel = new MenuPanel();
+	JPanel menuPanel = new JPanel();
 	JButton newGameButton = new JButton("New Game");
 	JButton loadGameButton = new JButton("Load Game");
 	JButton exitButton = new JButton("Exit");
 		
-	GameMenuPanel gameMenuPanel = new GameMenuPanel();
+	JPanel gameMenuPanel = new JPanel();
 	JButton backToMenuButton = new JButton("Back");
 	JButton saveGameButton = new JButton("Save");
 	
@@ -112,6 +113,7 @@ public class GameFrame extends JFrame {
 //		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
 		
 //		setResizable(false);
+		setSize(getPreferredSize());
 		setVisible(true);
 	}
 	
