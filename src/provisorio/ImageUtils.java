@@ -1,4 +1,4 @@
-package gui;
+package provisorio;
 
 import java.awt.Color;
 import java.awt.Image;

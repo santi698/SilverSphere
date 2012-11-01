@@ -1,8 +1,9 @@
 package provisorio;
 
-import gui.ImageUtils;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -63,8 +64,11 @@ public class GameFrame extends JFrame {
 		menuPanel.add(loadGameButton);
 		menuPanel.add(exitButton);
 		add(menuPanel);
-		setVisible(true);
+		Toolkit t = getToolkit();
+		Dimension d = t.getScreenSize();
 		setSize(300, 500);
+		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);
+		setVisible(true);
 	}
 	
 	void newGameButton_actionPerformed(ActionEvent e) {
@@ -77,7 +81,7 @@ public class GameFrame extends JFrame {
 			boardPanel.setBackground(Color.WHITE);
 			boardPanel.setVisible(true);
 			add(boardPanel);
-			setSize(boardPanel.getSize());
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();
 		} catch (IOException e1) {
 			e1.printStackTrace();
