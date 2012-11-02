@@ -90,10 +90,13 @@ public class Board implements Serializable{
 		}
 	}
 	public Cell getCell(int x, int y) {
-		return dataMatrix[y][x];
+		if (x < columns && y < rows)
+			return dataMatrix[y][x];
+		return null;
 	}
 	public void setCell(int x, int y, Cell cell) {
-		dataMatrix[y][x] = cell;
+		if (x < columns && y < rows)
+			dataMatrix[y][x] = cell;
 	}
 	@Override
 	public String toString() {

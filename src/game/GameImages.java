@@ -30,7 +30,7 @@ public class GameImages {
 			cellImages.put(Target.class, ImageUtils.loadImage("./resources/images/target.png"));
 			cellImages.put(Water.class, ImageUtils.loadImage("./resources/images/water.png"));
 			cellImages.put(IceBlockTarget.class, ImageUtils.loadImage("./resources/images/ice-box-target.png"));
-			cellImages.put(FloatingBox.class, ImageUtils.loadImage("./resources/images/box.png"));
+			cellImages.put(FloatingBox.class, ImageUtils.loadImage("./resources/images/floating-box.png"));
 			cellContentImages.put(IceBlock.class, ImageUtils.loadImage("./resources/images/ice-box.png"));
 			cellContentImages.put(Character.class, ImageUtils.loadImage("./resources/images/player.png"));
 			cellContentImages.put(Box.class, ImageUtils.loadImage("./resources/images/box.png"));
