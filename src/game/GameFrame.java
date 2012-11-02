@@ -65,6 +65,7 @@ public class GameFrame extends JFrame {
 	JPanel gameMenuPanel = new JPanel();
 	JButton backToMenuButton = new JButton("Back");
 	JButton saveGameButton = new JButton("Save");
+	JButton restartGameButton = new JButton("Restart Level");
 	
 	BoardPanel boardPanel;
 
@@ -135,6 +136,17 @@ public class GameFrame extends JFrame {
 				}
 			}	
 		});
+		restartGameButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (actualLevelFile != null)
+					startGame();
+				else
+					JOptionPane.showMessageDialog(gameMenuPanel,
+							"No se conoce la ubicacion del archivo de nivel");
+			}
+		});
+
 		
 		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		newGameButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -152,6 +164,7 @@ public class GameFrame extends JFrame {
 		gameMenuPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 		gameMenuPanel.add(saveGameButton);
 		gameMenuPanel.add(Box.createHorizontalGlue());
+		gameMenuPanel.add(restartGameButton);
 		gameMenuPanel.setVisible(false);
 		
 		Container contentPane = getContentPane();
@@ -301,14 +314,15 @@ public class GameFrame extends JFrame {
 	}
 
 	public static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
+		GameImageFactory factory = new GameImageFactory();
 		for (int i = 0; i < board.rows; i++) {
 			for (int j = 0; j < board.columns; j++) {
 				Cell c = board.getCell(j, i);
 				boardPanel.setImage(i, j, ImageUtils.loadImage("./resources/images/cell.png"));
 				if (!(c instanceof Target && !((Target) c).isVisible()))
-					boardPanel.appendImage(i, j, GameImages.cellImages.get(c.getClass()));
+					boardPanel.appendImage(i, j, factory.getImageFor(c));
 				if (c instanceof ContainerCell && c.getContent() != null)
-					boardPanel.appendImage(i, j, GameImages.cellContentImages.get(c.getContent().getClass()));
+					boardPanel.appendImage(i, j, factory.getImageFor(c.getContent()));
 			}
 		}
 		boardPanel.repaint();

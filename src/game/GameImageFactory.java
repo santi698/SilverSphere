@@ -18,10 +18,10 @@ import cell.Target;
 import cell.Tree;
 import cell.Water;
 
-public class GameImages {
-	public static Map<Class<? extends Cell>, Image> cellImages;
-	public static Map<Class<? extends CellContent>, Image> cellContentImages;
-	static {
+public class GameImageFactory {
+	public Map<Class<? extends Cell>, Image> cellImages;
+	public Map<Class<? extends CellContent>, Image> cellContentImages;
+	GameImageFactory() {
 		cellImages = new HashMap<Class<? extends Cell>, Image>();
 		cellContentImages = new HashMap<Class<? extends CellContent>, Image>();
 		try {
@@ -38,5 +38,11 @@ public class GameImages {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public Image getImageFor(Cell cell) {
+		return cellImages.get(cell.getClass());
+	}
+	public Image getImageFor(CellContent cellContent) {
+		return cellContentImages.get(cellContent.getClass());
 	}
 }
