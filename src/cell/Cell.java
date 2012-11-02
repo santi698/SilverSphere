@@ -1,7 +1,13 @@
 package cell;
 
+import java.io.Serializable;
 
-public abstract class Cell {
+
+public abstract class Cell implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CellContent content = null;
 	
 	public boolean isEmpty() {

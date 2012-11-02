@@ -1,8 +1,14 @@
 package cell;
+import java.io.Serializable;
+
 import cell.Cell;
 
 
-public abstract class ContainerCell extends Cell {
+public abstract class ContainerCell extends Cell implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CellContent content;
 	@Override
 	public boolean isEmpty() {

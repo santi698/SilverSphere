@@ -13,9 +13,11 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 
 import javax.swing.Box;
@@ -36,7 +38,7 @@ import cell.MoveReturnValue;
 public class GameFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+	private static final Dimension INITIAL_SIZE = new Dimension(150, 100);
 	private static final int CELL_SIZE = 30;
 		
 	Board board;
@@ -70,7 +72,10 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				actualLevelFile = askForFile("resources/levels");
-				newGameButton_actionPerformed(e);
+				if (actualLevelFile != null)
+					newGameButton_actionPerformed(e);
+				else
+					backToMenuButton_actionListener(null);
 			}
 		});
 		
@@ -94,29 +99,82 @@ public class GameFrame extends JFrame {
 				
 			}
 		});
+		backToMenuButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				backToMenuButton_actionListener(e);
+			}
+		});
+		saveGameButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					saveGameButton_actionPerformed(e);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}	
+		});
+		
 		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+		newGameButton.setAlignmentX(CENTER_ALIGNMENT);
 		menuPanel.add(newGameButton);
+		
 		menuPanel.add(Box.createVerticalGlue());
+		loadGameButton.setAlignmentX(CENTER_ALIGNMENT);
 		menuPanel.add(loadGameButton);
 		menuPanel.add(Box.createVerticalGlue());
+		exitButton.setAlignmentX(CENTER_ALIGNMENT);
 		menuPanel.add(exitButton);
 		
-//		gameMenuPanel.setLayout(new BoxLayout(gameMenuPanel, BoxLayout.X_AXIS));
-//		gameMenuPanel.add(backToMenuButton);
-//		gameMenuPanel.add(Box.createRigidArea(new Dimension(5, 0)));
-//		gameMenuPanel.add(saveGameButton);
-//		gameMenuPanel.add(Box.createHorizontalGlue());
-//		gameMenuPanel.setVisible(false);
+		gameMenuPanel.setLayout(new BoxLayout(gameMenuPanel, BoxLayout.X_AXIS));
+		gameMenuPanel.add(backToMenuButton);
+		gameMenuPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+		gameMenuPanel.add(saveGameButton);
+		gameMenuPanel.add(Box.createHorizontalGlue());
+		gameMenuPanel.setVisible(false);
 		
 		Container contentPane = getContentPane();
 		contentPane.add(menuPanel, BorderLayout.CENTER);
-//		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
+		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
 		
 //		setResizable(false);
-		setSize(getPreferredSize());
+		setSize(INITIAL_SIZE);
+		center();
 		setVisible(true);
+		setFocusable(true);
 	}
 	
+	protected void saveGameButton_actionPerformed(ActionEvent e) throws IOException {
+		File f = askForFile("saved");
+		ObjectOutputStream outStream = null;
+		if (f != null) {
+			try {
+				outStream = new ObjectOutputStream(new FileOutputStream(f));
+				outStream.writeObject(board);
+				
+			} catch (StreamCorruptedException e1) {
+				JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
+						"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
+			}
+			finally {
+				if (outStream != null)
+					outStream.close();
+			}
+		}
+
+	}
+	
+
+	protected void backToMenuButton_actionListener(ActionEvent e) {
+		gameMenuPanel.setVisible(false);
+		boardPanel.setVisible(false);
+		menuPanel.setVisible(true);
+		setSize(INITIAL_SIZE);
+		}
+
 	protected void game_keyPressed(KeyEvent e) {
 		{
 			if (boardPanel.isVisible()) {
@@ -138,8 +196,12 @@ public class GameFrame extends JFrame {
 							boardPanel.setVisible(false);
 							newGameButton_actionPerformed(null);
 						}
-						if (returnValue == MoveReturnValue.TARGET_REACHED)
+						if (returnValue == MoveReturnValue.TARGET_REACHED) {
 							JOptionPane.showMessageDialog(this, "Has ganado!");
+							boardPanel.setVisible(false);
+							newGameButton_actionPerformed(null);
+						}
+
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -159,8 +221,8 @@ public class GameFrame extends JFrame {
 			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 45);
 			boardPanel.repaint();
 			menuPanel.setVisible(false);
-			gameMenuPanel.setVisible(true);
 			boardPanel.setVisible(true);
+			gameMenuPanel.setVisible(true);
 			setVisible(true);
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -176,10 +238,8 @@ public class GameFrame extends JFrame {
 	private void resizeAndCenter(int width, int height) {
 //		setResizable(true);
 		setSize(width, height);
-		Toolkit t = getToolkit();
-		Dimension d = t.getScreenSize();
-		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);		
-//		setResizable(false);
+		center();
+		//		setResizable(false);
 	}
 
 	void loadGameButton_actionPerformed(ActionEvent e) throws IOException {
@@ -188,8 +248,10 @@ public class GameFrame extends JFrame {
 		try {
 			inStream = new ObjectInputStream(new FileInputStream(f));
 			board = (Board) inStream.readObject();
-			boardPanel = (BoardPanel) inStream.readObject();
+			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
+			setCellContents(board, boardPanel);
 			menuPanel.setVisible(false);
+			gameMenuPanel.setVisible(true);
 			add(boardPanel, BorderLayout.CENTER);
 			resizeAndCenter(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			repaint();
@@ -240,6 +302,11 @@ public class GameFrame extends JFrame {
 					panel.appendImage(i, j, GameImages.cellContentImages.get(c.getContent().getClass()));
 			}
 		}
+	}
+	public void center() {
+		Toolkit t = getToolkit();
+		Dimension d = t.getScreenSize();
+		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);
 	}
 
 }
