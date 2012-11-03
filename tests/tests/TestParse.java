@@ -37,11 +37,11 @@ public class TestParse {
 	}
 	@Test
 	public void testInvalid() throws IOException {
-		String[] files = {"./resources/levels/INV01.txt", "./resources/levels/INV02.txt",
-				"./resources/levels/INV03.txt", "./resources/levels/INV04.txt",
-				"./resources/levels/INV05.txt", "./resources/levels/INV06.txt",
-				"./resources/levels/INV07.txt", "./resources/levels/INV08.txt",
-				"./resources/levels/INV09.txt", "./resources/levels/INV10.txt",};
+		String[] files = {"test_levels/INV01.txt", "test_levels/INV02.txt",
+				"test_levels/INV03.txt", "test_levels/INV04.txt",
+				"test_levels/INV05.txt", "test_levels/INV06.txt",
+				"test_levels/INV07.txt", "test_levels/INV08.txt",
+				"test_levels/INV09.txt", "test_levels/INV10.txt",};
 		for (String file : files) {
 			boolean flag = false;
 			System.out.println("File: " + file);

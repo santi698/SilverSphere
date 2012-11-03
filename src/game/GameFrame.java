@@ -201,7 +201,8 @@ public class GameFrame extends JFrame {
 
 	protected void returnToMenu() {
 		gameMenuPanel.setVisible(false);
-		boardPanel.setVisible(false);
+		if (boardPanel != null)
+			boardPanel.setVisible(false);
 		menuPanel.setVisible(true);
 		setSize(INITIAL_SIZE);
 		}
