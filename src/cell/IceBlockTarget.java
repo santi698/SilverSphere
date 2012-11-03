@@ -7,6 +7,10 @@ package cell;
  */
 public class IceBlockTarget extends ContainerCell {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean visible;
 	
 	public boolean isVisible() {

@@ -4,12 +4,18 @@ import java.io.Serializable;
 import cell.Cell;
 
 
-public abstract class ContainerCell extends Cell implements Serializable{
+public class ContainerCell extends Cell implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private CellContent content;
+	public ContainerCell(CellContent content) {
+		this.content = content;
+	}
+	public ContainerCell() {
+		
+	}
 	@Override
 	public boolean isEmpty() {
 		return content == null;
@@ -19,6 +25,11 @@ public abstract class ContainerCell extends Cell implements Serializable{
 	}
 	public CellContent getContent() {
 		return content;
+	}
+	public String toString() {
+		if (isEmpty())
+			return "Empty";
+		return content.toString();
 	}
 	
 }

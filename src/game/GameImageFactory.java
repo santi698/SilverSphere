@@ -10,7 +10,7 @@ import cell.Box;
 import cell.Cell;
 import cell.CellContent;
 import cell.Character;
-import cell.EmptyCell;
+import cell.ContainerCell;
 import cell.FloatingBox;
 import cell.IceBlock;
 import cell.IceBlockTarget;
@@ -25,7 +25,7 @@ public class GameImageFactory {
 		cellImages = new HashMap<Class<? extends Cell>, Image>();
 		cellContentImages = new HashMap<Class<? extends CellContent>, Image>();
 		try {
-			cellImages.put(EmptyCell.class, ImageUtils.loadImage("./resources/images/cell.png"));
+			cellImages.put(ContainerCell.class, ImageUtils.loadImage("./resources/images/cell.png"));
 			cellImages.put(Tree.class, ImageUtils.loadImage("./resources/images/tree.png"));
 			cellImages.put(Target.class, ImageUtils.loadImage("./resources/images/target.png"));
 			cellImages.put(Water.class, ImageUtils.loadImage("./resources/images/water.png"));

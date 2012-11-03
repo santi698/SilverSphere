@@ -1,10 +1,13 @@
 package tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.Rule;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -14,18 +17,22 @@ import board.InvalidLevelException;
 public class TestParse {	
 	
 	private String [] readFileToStringArray (String file) throws IOException{
-		FileReader inStream = null;
-		char[] cbuf = new char[250];
+		Scanner scanner = null;
+		ArrayList<String> lines = new ArrayList<String>();
 		try {
-			inStream = new FileReader (file);
-			inStream.read(cbuf);
+			scanner = new Scanner(new FileReader (file));
+			while (scanner.hasNext()) {
+				lines.add(scanner.nextLine());
+			}
+				
 		} 
 		finally {
-			if (inStream != null) {
-				inStream.close();
+			if (scanner != null) {
+				scanner.close();
 			}
 		}
-		String[] sArr = (new String(cbuf)).split("\n"); //WTF pone como ultimo string del arreglo al original completo o.O
+		String[] sArr = new String[lines.size()];
+		lines.toArray(sArr);
 		return sArr;
 	}
 	@Test

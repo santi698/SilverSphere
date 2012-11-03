@@ -7,7 +7,7 @@ import java.util.Arrays;
 import cell.Box;
 import cell.Cell;
 import cell.Character;
-import cell.EmptyCell;
+import cell.ContainerCell;
 import cell.IceBlock;
 import cell.IceBlockTarget;
 import cell.MoveReturnValue;
@@ -42,9 +42,9 @@ public class Board implements Serializable{
 		this.columns = columns;
 		dataMatrix = new Cell[rows][columns];
 	}
-	//TODO No se que falta, pero algo debe faltar.
+	//TODO MODULARIZAR
 	public Board(String[] s) throws InvalidLevelException {
-		this(s.length -1 ,s[0].length()); //FIXME Parche feo 
+		this(s.length, s[0].length()); 
 		int chCount = 0, dCount = 0, ibCount = 0, intCount = 0;
 		for (int i = 0; i < rows; i++) {
 			if (s[i].length() != columns)
@@ -81,11 +81,11 @@ public class Board implements Serializable{
 		case 'T': return new Tree();
 		case '#': return new Water();
 		case 'K': return new IceBlockTarget();
-		case 'C': return new EmptyCell(new IceBlock());
-		case 'B': return new EmptyCell(new Box());
+		case 'C': return new ContainerCell(new IceBlock());
+		case 'B': return new ContainerCell(new Box());
 		case 'G': return new Target();
-		case '@': return new EmptyCell(new Character());
-		case ' ': return new EmptyCell();
+		case '@': return new ContainerCell(new Character());
+		case ' ': return new ContainerCell();
 		default: throw new InvalidLevelException("Caracter Inválido.");
 		}
 	}

@@ -7,6 +7,11 @@ package cell;
  */
 public class Water extends ContainerCell {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String toString() {
 		return "Water";
 	}

@@ -1,6 +1,5 @@
 package cell;
 
-import java.awt.Image;
 import java.awt.Point;
 
 import board.Board;
@@ -12,6 +11,10 @@ import board.Direction;
  *
  */
 public class IceBlock extends CellContent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Mueve el cubo de hielo
 	 * El mismo se debe mover hasta alcanzar un objeto que no 
@@ -38,10 +41,6 @@ public class IceBlock extends CellContent {
 		return MoveReturnValue.MOVED;
 	}
 	
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public String toString() {
 		return "Ice Block";
 	}

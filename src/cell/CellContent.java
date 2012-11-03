@@ -3,8 +3,6 @@ package cell;
 import java.awt.Point;
 import java.io.Serializable;
 
-import com.sun.xml.internal.ws.api.model.SEIModel;
-
 import board.Board;
 import board.Direction;
 
@@ -15,6 +13,8 @@ import board.Direction;
  *
  */
 public abstract class CellContent implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	public Point position = null;
 	public abstract MoveReturnValue move(Board board, Direction direction);
 

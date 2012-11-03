@@ -1,6 +1,5 @@
 package cell;
 
-import java.awt.Image;
 
 /**
  * Clase que representa una caja que cayo en el agua
@@ -9,10 +8,10 @@ import java.awt.Image;
  */
 public class FloatingBox extends ContainerCell {
 	
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String toString() {
 		return "Floating Box";
 	}

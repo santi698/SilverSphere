@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,6 +18,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -222,13 +223,11 @@ public class GameFrame extends JFrame {
 						setCellImages(board, boardPanel);
 						if (returnValue == MoveReturnValue.WATER_REACHED) {
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
-							boardPanel.setVisible(false);
 							startGame();
 						}
 						if (returnValue == MoveReturnValue.TARGET_REACHED) {
 							JOptionPane.showMessageDialog(this, "Has ganado!");
-							boardPanel.setVisible(false);
-							startGame();
+							returnToMenu();
 						}
 
 					} catch (IOException e1) {
@@ -242,6 +241,8 @@ public class GameFrame extends JFrame {
 
 	void startGame() {
 		try {
+			if (boardPanel != null)
+				boardPanel.setVisible(false);
 			board = loadLevelFromFile(actualLevelFile);
 			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
 			boardPanel.setBackground(Color.WHITE);
@@ -297,19 +298,22 @@ public class GameFrame extends JFrame {
 	}
 	
 	Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
-		char[] cBuf = new char[500];
-		String [] sArr;
-		BufferedReader reader = null;
-		try { 
-			
-		reader = new BufferedReader(new FileReader(f));
-		reader.read(cBuf);
-		sArr = new String(cBuf).split("\n");
-		}
+		Scanner scanner = null;
+		ArrayList<String> lines = new ArrayList<String>();
+		try {
+			scanner = new Scanner(new FileReader (f));
+			while (scanner.hasNext()) {
+				lines.add(scanner.nextLine());
+			}
+				
+		} 
 		finally {
-			if (reader != null)
-				reader.close();
+			if (scanner != null) {
+				scanner.close();
+			}
 		}
+		String[] sArr = new String[lines.size()];
+		lines.toArray(sArr);
 		return new Board(sArr);
 	}
 
