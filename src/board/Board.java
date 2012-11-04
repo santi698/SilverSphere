@@ -104,7 +104,7 @@ public class Board implements Serializable{
 	 * @return la celda en la posición (x, y)
 	 */
 	public Cell getCell(int x, int y) {
-		if (x < columns && y < rows)
+		if (x >= 0 && x < columns && y >= 0 && y < rows)
 			return dataMatrix[y][x];
 		return null;
 	}

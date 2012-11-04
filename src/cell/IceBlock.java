@@ -35,7 +35,7 @@ public class IceBlock extends CellContent {
 				return MoveReturnValue.MOVED;
 			}
 			if (nextCell instanceof IceBlockTarget) {
-				((IceBlockTarget) nextCell).setVisible();
+				((Target)board.getTargetCell()).setVisible();
 			}
 			board.getCell(position.x, position.y).setContent(null);
 			nextCell.setContent(this);
