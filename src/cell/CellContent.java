@@ -15,9 +15,10 @@ import board.Direction;
 public abstract class CellContent implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	public Point position = null;
+	public Point position;
+	
 	public abstract MoveReturnValue move(Board board, Direction direction);
-
+	
 	public void setPosition(Point point) {
 		position = point;
 	}

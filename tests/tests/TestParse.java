@@ -62,7 +62,9 @@ public class TestParse {
 	public ExpectedException thrown = ExpectedException.none();
 	@Test
 	public void testValid() throws IOException, InvalidLevelException {
-		String[] files = {"./resources/levels/v01.txt"};
+		String[] files = {"./resources/levels/v01.txt",
+				"./resources/levels/v02.txt", "./resources/levels/v03.txt",
+				"./resources/levels/v04.txt"};
 		for (String file : files) {
 			System.out.println("File: " + file);
 			String[] sArr = readFileToStringArray(file);

@@ -16,7 +16,7 @@ import cell.Tree;
 import cell.Water;
 
 /** 
- * Clase que representa el tablero de juego
+ * Clase que representa el tablero de juego.
  * 
  * @author santi698
  *
@@ -34,15 +34,22 @@ public class Board implements Serializable{
 	private Character character;
 	private Target targetCell;
 	
-	public Cell getTargetCell() {
-		return targetCell;
-	}
+	/**
+	 * Crea un tablero de las dimensiones especificadas.
+	 * @param rows Cantidad de filas
+	 * @param columns Cantidad de columnas
+	 */
 	Board(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
 		dataMatrix = new Cell[rows][columns];
 	}
-	//TODO MODULARIZAR
+	/**
+	 * 
+	 * @param s Un array de {@code String}s donde cada elemento es una fila del tablero
+	 * @throws InvalidLevelException Cuando el nivel no respeta el formato estándar
+	 */
+	//TODO MODULARIZAR/REESCRIBIR
 	public Board(String[] s) throws InvalidLevelException {
 		this(s.length, s[0].length()); 
 		int chCount = 0, dCount = 0, ibCount = 0, intCount = 0;
@@ -76,6 +83,7 @@ public class Board implements Serializable{
 					"\n Personajes: " + chCount + ", Destinos: " + dCount + ", Cubos de hielo: " +
 							"" + ibCount + ", Interruptores:" + intCount + ".");
 		}
+	//TODO Pasar a una clase aparte
 	private static Cell charToCell(char c) throws InvalidLevelException {
 		switch (c) {
 		case 'T': return new Tree();
@@ -89,15 +97,38 @@ public class Board implements Serializable{
 		default: throw new InvalidLevelException("Caracter Inválido.");
 		}
 	}
+	/**
+	 * Retorna la celda en la posición (x, y)
+	 * @param x 
+	 * @param y
+	 * @return la celda en la posición (x, y)
+	 */
 	public Cell getCell(int x, int y) {
 		if (x < columns && y < rows)
 			return dataMatrix[y][x];
 		return null;
 	}
+	/**
+	 * Reemplaza el contenido de la celda en la posicion (x, y) por {@code cell}
+	 * @param x
+	 * @param y
+	 * @param cell la celda que va a reemplazar a la que esta en la posición (x, y)
+	 */
 	public void setCell(int x, int y, Cell cell) {
 		if (x < columns && y < rows)
 			dataMatrix[y][x] = cell;
 	}
+	/**
+	 * Obtiene una referencia a la celda destino del tablero.
+	 * @return La celda destino
+	 * @see {@link Target}
+	 */
+	public Cell getTargetCell() {
+		return targetCell;
+	}
+	/**
+	 * Para debugging
+	 */
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder();
@@ -107,12 +138,16 @@ public class Board implements Serializable{
 		}
 		return s.toString();
 	}
+	/**
+	 * Mueve al personaje en la direccion especificada. 
+	 * @param direction
+	 * @return el resultado del movimiento 
+	 * @see {@link cell.MoveReturnValue}
+	 * @see {@link Direction}
+	 */
 	public MoveReturnValue moveCharacter(Direction direction) {
 		return character.move(this, direction);
 	}
-	public void setTargetVisible() {
-		targetCell.setVisible();
-		
-	}
+
 	
 }
