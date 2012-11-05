@@ -145,7 +145,6 @@ public class GameFrame extends JFrame {
 				else
 					JOptionPane.showMessageDialog(gameMenuPanel,
 							"No se conoce la ubicacion del archivo de nivel");
-				requestFocus();
 			}
 		});
 
@@ -180,6 +179,11 @@ public class GameFrame extends JFrame {
 		setFocusable(true);
 	}
 	
+	/**
+	 * m�todo que se encarga de guardar el juego. 
+	 * @param f
+	 * @throws IOException
+	 */
 	protected void saveGame(File f) throws IOException {
 		ObjectOutputStream outStream = null;
 		if (f != null) {
@@ -195,12 +199,14 @@ public class GameFrame extends JFrame {
 				if (outStream != null)
 					outStream.close();
 			}
-			requestFocus();
 		}
 
 	}
 	
 
+	/**
+	 * m�todo que retorna nuevamente al men� inicial.
+	 */
 	protected void returnToMenu() {
 		gameMenuPanel.setVisible(false);
 		if (boardPanel != null)
@@ -209,6 +215,10 @@ public class GameFrame extends JFrame {
 		setSize(INITIAL_SIZE);
 		}
 
+	/**
+	 * 
+	 * @param e
+	 */
 	protected void respondToKeyEvent(KeyEvent e) {
 		{
 			if (boardPanel.isVisible()) {
@@ -224,17 +234,13 @@ public class GameFrame extends JFrame {
 					if (returnValue != MoveReturnValue.UNABLE_TO_MOVE)
 					try {
 						setCellImages(board, boardPanel);
-						switch(returnValue) {
-						case WATER_REACHED :
+						if (returnValue == MoveReturnValue.WATER_REACHED) {
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
 							startGame();
-							break;
-						case TARGET_REACHED:
+						}
+						if (returnValue == MoveReturnValue.TARGET_REACHED) {
 							JOptionPane.showMessageDialog(this, "Has ganado!");
 							returnToMenu();
-							break;
-						default:
-							break;
 						}
 
 					} catch (IOException e1) {
@@ -246,6 +252,9 @@ public class GameFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	void startGame() {
 		try {
 			if (boardPanel != null)
@@ -255,7 +264,7 @@ public class GameFrame extends JFrame {
 			boardPanel.setBackground(Color.WHITE);
 			setCellImages(board, boardPanel);
 			add(boardPanel);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 50);
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 45);
 			center();
 			menuPanel.setVisible(false);
 			boardPanel.setVisible(true);
@@ -272,6 +281,11 @@ public class GameFrame extends JFrame {
 		
 	}
 
+	/**
+	 * 
+	 * @param f
+	 * @throws IOException
+	 */
 	void loadGame(File f) throws IOException {
 		ObjectInputStream inStream = null;
 		try {
@@ -282,7 +296,7 @@ public class GameFrame extends JFrame {
 			menuPanel.setVisible(false);
 			gameMenuPanel.setVisible(true);
 			add(boardPanel, BorderLayout.CENTER);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() +50);
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			center();
 			
 		} catch (ClassNotFoundException e1) {
@@ -297,6 +311,11 @@ public class GameFrame extends JFrame {
 				inStream.close();
 		}
 	}
+	/**
+	 * 
+	 * @param path
+	 * @return
+	 */
 	File askForFile(String path) {
 		JFileChooser chooser = new JFileChooser(path);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -304,12 +323,18 @@ public class GameFrame extends JFrame {
 		return null;
 	}
 	
+	/**
+	 * m�todo que carga un nivel desde un archivo.
+	 * @param f
+	 * @return un tablero nuevo creado en funci�n del nivel cargado
+	 * @throws IOException
+	 * @throws InvalidLevelException en caso de que el nivel que se intenta cargar no sea v�lido.
+	 */
 	Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
 		Scanner scanner = null;
 		ArrayList<String> lines = new ArrayList<String>();
 		try {
 			scanner = new Scanner(new FileReader (f));
-			scanner.useDelimiter("\n");
 			while (scanner.hasNext()) {
 				lines.add(scanner.nextLine());
 			}
@@ -325,6 +350,13 @@ public class GameFrame extends JFrame {
 		return new Board(sArr);
 	}
 
+	/**
+	 * carga las imagenes del tablero lógico (board) en el tablero gráfico (boardPanel). 
+	 * @param board 
+	 * @param boardPanel
+	 * @throws IOException
+	 * @see {@link IOException}
+	 */
 	public static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
 		GameImageFactory factory = new GameImageFactory();
 		for (int i = 0; i < board.rows; i++) {
@@ -339,6 +371,10 @@ public class GameFrame extends JFrame {
 		}
 		boardPanel.repaint();
 	}
+	
+	/**
+	 * 
+	 */
 	public void center() {
 		Toolkit t = getToolkit();
 		Dimension d = t.getScreenSize();
