@@ -1,6 +1,7 @@
 package cell;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import board.Board;
 import board.Direction;
@@ -14,26 +15,31 @@ public class Character extends CellContent {
 		return "Character";
 	}
 
-	public MoveReturnValue move(Board board, Direction direction) {
+	public ArrayList<Point> move(Board board, Direction direction) {
 		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+		ArrayList<Point> changed = new ArrayList<Point>();
 		if (nextCell instanceof ContainerCell) {
-			if (!((ContainerCell)nextCell).isEmpty() && 
-					(((ContainerCell)nextCell).getContent().move(board, direction)
-							== MoveReturnValue.UNABLE_TO_MOVE))
-				return MoveReturnValue.UNABLE_TO_MOVE;
+			ContainerCell nextCellAsContainer = (ContainerCell) nextCell;
+			ArrayList<Point> nextCellChanged = null;
+			if (!nextCellAsContainer.isEmpty()) {
+				nextCellChanged = nextCellAsContainer.getContent().move(board, direction);
+				changed.addAll(nextCellChanged);
+			}
+			if (nextCellChanged != null &&
+					nextCellChanged.isEmpty())
+				return changed;
 			else {
+				changed.add(position);
+				changed.add(new Point(position.x + direction.x, position.y + direction.y));
 				board.getCell(position.x, position.y).setContent(null);
 				nextCell.setContent(this);
 				this.setPosition(new Point(position.x + direction.x, position.y + direction.y));
-				if (nextCell instanceof Water)
-					return MoveReturnValue.WATER_REACHED;
-				if (nextCell instanceof Target && ((Target)nextCell).isVisible())
-					return MoveReturnValue.TARGET_REACHED;
-				return MoveReturnValue.MOVED;
+				if (nextCell instanceof Water || 
+						(nextCell instanceof Target && ((Target)nextCell).isVisible()))
+					return changed;
 			}
 		}
-		else
-			return MoveReturnValue.UNABLE_TO_MOVE;
+		return changed;
 
 	}
 }

@@ -2,6 +2,7 @@ package board;
 
 import java.awt.Point;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import cell.Box;
@@ -10,7 +11,6 @@ import cell.Character;
 import cell.ContainerCell;
 import cell.IceBlock;
 import cell.IceBlockTarget;
-import cell.MoveReturnValue;
 import cell.Target;
 import cell.Tree;
 import cell.Water;
@@ -145,7 +145,7 @@ public class Board implements Serializable{
 	 * @see {@link cell.MoveReturnValue}
 	 * @see {@link Direction}
 	 */
-	public MoveReturnValue moveCharacter(Direction direction) {
+	public ArrayList<Point> moveCharacter(Direction direction) {
 		return character.move(this, direction);
 	}
 

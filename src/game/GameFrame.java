@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,8 +36,8 @@ import board.Board;
 import board.Direction;
 import board.InvalidLevelException;
 import cell.Cell;
+import cell.Water;
 import cell.ContainerCell;
-import cell.MoveReturnValue;
 import cell.Target;
 
 public class GameFrame extends JFrame {
@@ -230,15 +231,23 @@ public class GameFrame extends JFrame {
 				case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
 				}
 				if (direction != null) {
-					MoveReturnValue returnValue = board.moveCharacter(direction);
-					if (returnValue != MoveReturnValue.UNABLE_TO_MOVE)
+					ArrayList<Point> changed = board.moveCharacter(direction);
+					if (!changed.isEmpty())
 					try {
-						setCellImages(board, boardPanel);
-						if (returnValue == MoveReturnValue.WATER_REACHED) {
+						boolean waterFlag = false;
+						boolean targetFlag = false;
+						updateCellImages(changed, boardPanel);
+						for (Point position : changed) {
+							Cell actualCell = board.getCell(position.x, position.y);
+							if (actualCell instanceof Water) {waterFlag = true;}
+							if (actualCell instanceof Target && ((Target) actualCell).isVisible()) {targetFlag = true;}
+						}
+						if (waterFlag) {
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
 							startGame();
+
 						}
-						if (returnValue == MoveReturnValue.TARGET_REACHED) {
+						if (targetFlag) {
 							JOptionPane.showMessageDialog(this, "Has ganado!");
 							returnToMenu();
 						}
@@ -250,6 +259,20 @@ public class GameFrame extends JFrame {
 				}
 			}
 		}
+	}
+
+	private void updateCellImages(ArrayList<Point> changed,
+			BoardPanel boardPanel) throws IOException {
+		GameImageFactory factory = new GameImageFactory();
+		for (Point position : changed) {
+				Cell c = board.getCell(position.x, position.y);
+				boardPanel.setImage(position.y, position.x, ImageUtils.loadImage("./resources/images/cell.png"));
+				if (!(c instanceof Target && !((Target) c).isVisible()))
+					boardPanel.appendImage(position.y, position.x, factory.getImageFor(c));
+				if (c instanceof ContainerCell && c.getContent() != null)
+					boardPanel.appendImage(position.y, position.x, factory.getImageFor(c.getContent()));
+			}
+		boardPanel.repaint();
 	}
 
 	/**

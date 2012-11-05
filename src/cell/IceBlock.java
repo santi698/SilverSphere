@@ -1,6 +1,7 @@
 package cell;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import board.Board;
 import board.Direction;
@@ -25,24 +26,28 @@ public class IceBlock extends CellContent {
 	 * @see {@link MoveReturnValue}
 	 */
 	//TODO REVISAR!
-	public MoveReturnValue move(Board board, Direction direction) {
+	public ArrayList<Point> move(Board board, Direction direction) {
+		ArrayList<Point> changed = new ArrayList<Point>();
 		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
 		if(!(nextCell instanceof ContainerCell) || !nextCell.isEmpty())
-			return MoveReturnValue.UNABLE_TO_MOVE;
+			return changed;
+		changed.add(position);
 		while(nextCell instanceof ContainerCell && nextCell.isEmpty()) {
 			if (nextCell instanceof Water) {
 				board.getCell(position.x, position.y).setContent(null);
-				return MoveReturnValue.MOVED;
-			}
-			if (nextCell instanceof IceBlockTarget) {
-				((Target)board.getTargetCell()).setVisible();
+				return changed;
 			}
 			board.getCell(position.x, position.y).setContent(null);
 			nextCell.setContent(this);
 			setPosition(new Point(position.x + direction.x, position.y + direction.y));
 			nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
 		}
-		return MoveReturnValue.MOVED;
+		if (board.getCell(position.x, position.y) instanceof IceBlockTarget) {
+			((Target)board.getTargetCell()).setVisible();
+//			TODO changed.add(board.getTargetCell().getPosition());
+		}
+		changed.add(position);
+		return changed;
 	}
 	/**
 	 * Para debugging
