@@ -43,8 +43,8 @@ public class IceBlock extends CellContent {
 			nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
 		}
 		if (board.getCell(position.x, position.y) instanceof IceBlockTarget) {
-			((Target)board.getTargetCell()).setVisible();
-//			TODO changed.add(board.getTargetCell().getPosition());
+			board.getTargetCell().setVisible();
+			changed.add(board.getTargetCell().getPosition());
 		}
 		changed.add(position);
 		return changed;

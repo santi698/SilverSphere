@@ -39,6 +39,7 @@ import cell.Cell;
 import cell.Water;
 import cell.ContainerCell;
 import cell.Target;
+import cell.Character;
 
 public class GameFrame extends JFrame {
 	static {
@@ -240,7 +241,7 @@ public class GameFrame extends JFrame {
 						for (Point position : changed) {
 							Cell actualCell = board.getCell(position.x, position.y);
 							if (actualCell instanceof Water) {waterFlag = true;}
-							if (actualCell instanceof Target && ((Target) actualCell).isVisible()) {targetFlag = true;}
+							if (actualCell instanceof Target && (((Target) actualCell).getContent() instanceof Character)) {targetFlag = true;}
 						}
 						if (waterFlag) {
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");

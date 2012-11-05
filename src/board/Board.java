@@ -66,7 +66,11 @@ public class Board implements Serializable{
 					character = (Character)actualCell.getContent();
 					character.setPosition(new Point(j, i));
 					break;
-				case 'G': dCount++; targetCell = (Target) actualCell; break;
+				case 'G': 
+					dCount++;
+					targetCell = (Target) actualCell;
+					targetCell.setPosition(new Point(j, i));
+					break;
 				case 'C': 
 					ibCount++;
 					actualCell.getContent().setPosition(new Point(j, i));
@@ -123,7 +127,7 @@ public class Board implements Serializable{
 	 * @return La celda destino
 	 * @see {@link Target}
 	 */
-	public Cell getTargetCell() {
+	public Target getTargetCell() {
 		return targetCell;
 	}
 	/**

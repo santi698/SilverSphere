@@ -1,7 +1,8 @@
-TTTTTTTTTTTTTTTTTTTT
-TTTTT@    K ########
-#####BT #BC#########
-######B#      ######
-TT   #####B     TTTT
-G    ####B   TTTTTTT
-TTTT  #B #          
+T      @      T
+T  B  BBB  B  T
+T BTB  B  BTB T
+T  BG B B  B  T
+T   BB T BB   T
+TBBBB BBB BBBBT
+T      C      T
+TTTTTTTKTTTTTTT
