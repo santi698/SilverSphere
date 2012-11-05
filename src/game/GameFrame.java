@@ -179,6 +179,11 @@ public class GameFrame extends JFrame {
 		setFocusable(true);
 	}
 	
+	/**
+	 * método que se encarga de guardar el juego. 
+	 * @param f
+	 * @throws IOException
+	 */
 	protected void saveGame(File f) throws IOException {
 		ObjectOutputStream outStream = null;
 		if (f != null) {
@@ -199,6 +204,9 @@ public class GameFrame extends JFrame {
 	}
 	
 
+	/**
+	 * método que retorna nuevamente al menú inicial.
+	 */
 	protected void returnToMenu() {
 		gameMenuPanel.setVisible(false);
 		if (boardPanel != null)
@@ -207,6 +215,10 @@ public class GameFrame extends JFrame {
 		setSize(INITIAL_SIZE);
 		}
 
+	/**
+	 * 
+	 * @param e
+	 */
 	protected void respondToKeyEvent(KeyEvent e) {
 		{
 			if (boardPanel.isVisible()) {
@@ -240,6 +252,9 @@ public class GameFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	void startGame() {
 		try {
 			if (boardPanel != null)
@@ -266,6 +281,11 @@ public class GameFrame extends JFrame {
 		
 	}
 
+	/**
+	 * 
+	 * @param f
+	 * @throws IOException
+	 */
 	void loadGame(File f) throws IOException {
 		ObjectInputStream inStream = null;
 		try {
@@ -291,6 +311,11 @@ public class GameFrame extends JFrame {
 				inStream.close();
 		}
 	}
+	/**
+	 * 
+	 * @param path
+	 * @return
+	 */
 	File askForFile(String path) {
 		JFileChooser chooser = new JFileChooser(path);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -298,6 +323,13 @@ public class GameFrame extends JFrame {
 		return null;
 	}
 	
+	/**
+	 * método que carga un nivel desde un archivo.
+	 * @param f
+	 * @return un tablero nuevo creado en función del nivel cargado
+	 * @throws IOException
+	 * @throws InvalidLevelException en caso de que el nivel que se intenta cargar no sea válido.
+	 */
 	Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
 		Scanner scanner = null;
 		ArrayList<String> lines = new ArrayList<String>();
@@ -318,6 +350,12 @@ public class GameFrame extends JFrame {
 		return new Board(sArr);
 	}
 
+	/**
+	 * carga las imagenes del tablero lógico (board) en el tablero gráfico (boardPanel). 
+	 * @param board 
+	 * @param boardPanel
+	 * @throws IOException
+	 */
 	public static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
 		GameImageFactory factory = new GameImageFactory();
 		for (int i = 0; i < board.rows; i++) {
@@ -332,6 +370,10 @@ public class GameFrame extends JFrame {
 		}
 		boardPanel.repaint();
 	}
+	
+	/**
+	 * 
+	 */
 	public void center() {
 		Toolkit t = getToolkit();
 		Dimension d = t.getScreenSize();
