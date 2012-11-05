@@ -145,6 +145,7 @@ public class GameFrame extends JFrame {
 				else
 					JOptionPane.showMessageDialog(gameMenuPanel,
 							"No se conoce la ubicacion del archivo de nivel");
+				requestFocus();
 			}
 		});
 
@@ -194,6 +195,7 @@ public class GameFrame extends JFrame {
 				if (outStream != null)
 					outStream.close();
 			}
+			requestFocus();
 		}
 
 	}
@@ -222,13 +224,17 @@ public class GameFrame extends JFrame {
 					if (returnValue != MoveReturnValue.UNABLE_TO_MOVE)
 					try {
 						setCellImages(board, boardPanel);
-						if (returnValue == MoveReturnValue.WATER_REACHED) {
+						switch(returnValue) {
+						case WATER_REACHED :
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
 							startGame();
-						}
-						if (returnValue == MoveReturnValue.TARGET_REACHED) {
+							break;
+						case TARGET_REACHED:
 							JOptionPane.showMessageDialog(this, "Has ganado!");
 							returnToMenu();
+							break;
+						default:
+							break;
 						}
 
 					} catch (IOException e1) {
@@ -249,7 +255,7 @@ public class GameFrame extends JFrame {
 			boardPanel.setBackground(Color.WHITE);
 			setCellImages(board, boardPanel);
 			add(boardPanel);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 45);
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 50);
 			center();
 			menuPanel.setVisible(false);
 			boardPanel.setVisible(true);
@@ -276,7 +282,7 @@ public class GameFrame extends JFrame {
 			menuPanel.setVisible(false);
 			gameMenuPanel.setVisible(true);
 			add(boardPanel, BorderLayout.CENTER);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() +50);
 			center();
 			
 		} catch (ClassNotFoundException e1) {
@@ -303,6 +309,7 @@ public class GameFrame extends JFrame {
 		ArrayList<String> lines = new ArrayList<String>();
 		try {
 			scanner = new Scanner(new FileReader (f));
+			scanner.useDelimiter("\n");
 			while (scanner.hasNext()) {
 				lines.add(scanner.nextLine());
 			}
