@@ -85,6 +85,9 @@ public class Board implements Serializable{
 					", al menos un cubo de hielo, y no más de un interruptor." +
 					"\n Personajes: " + chCount + ", Destinos: " + dCount + ", Cubos de hielo: " +
 							"" + ibCount + ", Interruptores:" + intCount + ".");
+		if (intCount == 0) {
+			targetCell.setVisible();
+		}
 		}
 	//TODO Pasar a una clase aparte
 	private static Cell charToCell(char c) throws InvalidLevelException {
