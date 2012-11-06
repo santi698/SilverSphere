@@ -45,7 +45,6 @@ public class Board implements Serializable{
 		dataMatrix = new Cell[rows][columns];
 	}
 	/**
-	 * 
 	 * @param s Un array de {@code String}s donde cada elemento es una fila del tablero
 	 * @throws InvalidLevelException Cuando el nivel no respeta el formato estándar
 	 */
@@ -144,8 +143,8 @@ public class Board implements Serializable{
 	}
 	/**
 	 * Mueve al personaje en la direccion especificada. 
-	 * @param direction
-	 * @return el resultado del movimiento 
+	 * @param direction La direccion en la que se debe mover el personaje
+	 * @return Una lista con las posiciones del tablero que fueron modificadas. 
 	 * @see {@link cell.MoveReturnValue}
 	 * @see {@link Direction}
 	 */

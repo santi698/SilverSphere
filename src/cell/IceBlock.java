@@ -19,10 +19,11 @@ public class IceBlock extends CellContent {
 	/**
 	 * Mueve el cubo de hielo. 
 	 * El mismo se debe mover hasta alcanzar una celda que no 
-	 * es {@link ContainerCell} o hasta alcanzar una de tipo {@link Water}
+	 * es {@link ContainerCell} o hasta alcanzar una de tipo {@link Water}. El cubo de hielo se frena
+	 * o se "derrite" (desaparece), respectivamente.
 	 * @param board
 	 * @param direction
-	 * @return El resultado del movimiento 
+	 * @return una lista de las celdas modificadas como resultado de movimiento
 	 * @see {@link MoveReturnValue}
 	 */
 	//TODO REVISAR!

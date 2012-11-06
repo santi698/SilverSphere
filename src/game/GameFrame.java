@@ -93,7 +93,7 @@ public class GameFrame extends JFrame {
 				if (actualLevelFile != null)
 					startGame();
 				else
-					returnToMenu();
+					requestFocus();
 			}
 		});
 		
@@ -108,6 +108,7 @@ public class GameFrame extends JFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				requestFocus();
 			}
 		});
 		
@@ -124,6 +125,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				returnToMenu();
+				requestFocus();
 			}
 		});
 		saveGameButton.addActionListener(new ActionListener() {
@@ -137,6 +139,7 @@ public class GameFrame extends JFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				requestFocus();
 			}	
 		});
 		restartGameButton.addActionListener(new ActionListener() {
@@ -147,6 +150,7 @@ public class GameFrame extends JFrame {
 				else
 					JOptionPane.showMessageDialog(gameMenuPanel,
 							"No se conoce la ubicacion del archivo de nivel");
+				requestFocus();
 			}
 		});
 
@@ -215,6 +219,7 @@ public class GameFrame extends JFrame {
 			boardPanel.setVisible(false);
 		menuPanel.setVisible(true);
 		setSize(INITIAL_SIZE);
+		requestFocus();
 		}
 
 	/**
@@ -359,6 +364,7 @@ public class GameFrame extends JFrame {
 		ArrayList<String> lines = new ArrayList<String>();
 		try {
 			scanner = new Scanner(new FileReader (f));
+			scanner.useDelimiter("\n");
 			while (scanner.hasNext()) {
 				lines.add(scanner.nextLine());
 			}
