@@ -259,7 +259,11 @@ public class GameFrame extends JFrame {
 						for (Position position : changed) {
 							Cell actualCell = board.getCell(position.x, position.y);
 							if (actualCell instanceof Water) {waterFlag = true;}
-							if (actualCell instanceof Target && (((Target) actualCell).getContent() instanceof Character)) {targetFlag = true;}
+							if (actualCell instanceof Target &&
+									((Target) actualCell).isVisible() && 
+									(((Target) actualCell).getContent() instanceof Character)) {
+								targetFlag = true;
+								}
 						}
 						if (waterFlag) {
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");

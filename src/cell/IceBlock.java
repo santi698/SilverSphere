@@ -29,28 +29,37 @@ public class IceBlock extends CellContent {
 	
 	//TODO REVISAR!
 	public ArrayList<Position> move(Board board, Direction direction) {
+		
 		ArrayList<Position> changed = new ArrayList<Position>();
-		Cell nextCell = board.getCell(position.next(direction));
+		Position nextPos = position.next(direction);
+		Cell nextCell = board.getCell(nextPos);
+		
 		if(!(nextCell instanceof ContainerCell) || !nextCell.isEmpty())
 			return changed;
+		
 		changed.add(position);
 		while(nextCell instanceof ContainerCell && nextCell.isEmpty()) {
 			if (nextCell instanceof Water) {
 				board.getCell(position).setContent(null);
 				return changed;
 			}
+			
 			board.getCell(position).setContent(null);
 			nextCell.setContent(this);
-			setPosition(position.next(direction));
-			nextCell = board.getCell(position.next(direction));
+			setPosition(nextPos);
+			nextPos = position.next(direction);
+			nextCell = board.getCell(nextPos);
 		}
-		if (board.getCell(position.x, position.y) instanceof IceBlockTarget) {
+		
+		if (board.getCell(position) instanceof IceBlockTarget) {
 			board.getTargetCell().setVisible();
 			changed.add(board.getTargetCell().getPosition());
 		}
+		
 		changed.add(position);
 		return changed;
 	}
+	
 	/**
 	 * Para debugging
 	 */

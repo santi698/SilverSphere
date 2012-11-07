@@ -27,18 +27,20 @@ public class Box extends CellContent {
 
 	@Override
 	public ArrayList<Position> move(Board board, Direction direction) {
+		
 		ArrayList<Position> changed = new ArrayList<Position>();
-		Cell nextCell = board.getCell(position.next(direction));
+		Position nextPos = position.next(direction);
+		Cell nextCell = board.getCell(nextPos);
 		if (!(nextCell instanceof ContainerCell) || !((ContainerCell)nextCell).isEmpty())
 			return changed;
 		changed.add(position);
-		changed.add(position.next(direction));
+		changed.add(nextPos);
 		board.getCell(position.x, position.y).setContent(null);
 		if(nextCell instanceof Water)
-			board.setCell(position.next(direction), new FloatingBox());
+			board.setCell(nextPos, new FloatingBox());
 		else {
 			nextCell.setContent(this);
-			this.setPosition(position.next(direction));
+			this.setPosition(nextPos);
 		}
 		return changed;
 	}
