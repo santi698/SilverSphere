@@ -1,16 +1,16 @@
 package tests;
 
-import static org.junit.Assert.*;
-import java.awt.Point;
-import java.util.*;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
 
 import org.junit.Test;
 
-import cell.Box;
 import board.Board;
 import board.Direction;
 import board.InvalidLevelException;
 import board.Position;
+import cell.Box;
 import cell.Character;
 
 
@@ -23,15 +23,14 @@ import cell.Character;
 			sArr[1]= "@B  ";
 			sArr[2]= "T  C";
 			sArr[3]= "   K";
-
 			
 			Board board1 = new Board(sArr);
 			Direction dir1 = Direction.RIGHT;
-			int x = 0; // falta definir x e y en función de 
+			ArrayList<Position> positionList = board1.moveCharacter(dir1);
+			int x = 0; // falta definir x e y en funciï¿½n de 
 			int y = 1; //
-			ArrayList<Position> position = board1.moveCharacter(dir1);
 			assertTrue(board1.getCell(x + 1, y + 0).getContent() instanceof Character);
-			assertTrue(position.contains(new Point(1+x,y+0))); 
+			assertTrue(positionList.contains(new Position(1 + x, y + 0))); 
 			assertTrue(board1.getCell(x + 2, y + 0).getContent() instanceof Box); 
 			}
 		
