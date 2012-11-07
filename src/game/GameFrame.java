@@ -350,6 +350,9 @@ public class GameFrame extends JFrame {
 		} catch (StreamCorruptedException e1) {
 			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
 					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
+		} catch (ClassCastException e) {
+			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
+					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
 		}
 		finally {
 			if (inStream != null)

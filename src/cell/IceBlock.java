@@ -27,7 +27,6 @@ public class IceBlock extends CellContent {
 	 * @see {@link MoveReturnValue}
 	 */
 	
-	//TODO REVISAR!
 	public ArrayList<Position> move(Board board, Direction direction) {
 		
 		ArrayList<Position> changed = new ArrayList<Position>();

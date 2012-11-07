@@ -4,7 +4,7 @@
 <target name="compile">
 	<mkdir dir="bin"/>
 	<javac srcdir="src" destdir="bin"/>
-	<javac srcdir="tests" destdir="bin" classpath="lib/junit.jar"/>
+	<javac srcdir="tests" destdir="bin" classpath="lib/junit.jar;bin"/>
 </target>
 	
 <!-- Crea la documentacion en formato Javadoc, en el directorio doc. -->
@@ -17,7 +17,7 @@
 	<junit showoutput="true" printsummary="on">
 	<formatter type="brief" usefile="false"/>
 	<classpath path="lib/junit.jar;bin" />
-	<test name="TestParse" />
+	<test name="tests.TestParse" />
 	</junit>
 </target>
 	
