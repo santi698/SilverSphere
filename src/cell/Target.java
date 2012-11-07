@@ -1,6 +1,6 @@
 package cell;
 
-import java.awt.Point;
+import board.Position;
 
 public class Target extends ContainerCell {
 	/**
@@ -8,9 +8,9 @@ public class Target extends ContainerCell {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean visible;
-	private Point position;
+	private Position position;
 	
-	public Point getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 	public boolean isVisible() {
@@ -23,9 +23,9 @@ public class Target extends ContainerCell {
 	public String toString() {
 		return "Destino + " + this.getContent();
 	}
-	public void setPosition(Point point) {
+	public void setPosition(Position pos) {
 
-		position = point;
+		position = pos;
 	}
 
 }

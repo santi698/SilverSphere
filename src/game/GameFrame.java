@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,11 +34,12 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import board.Board;
 import board.Direction;
 import board.InvalidLevelException;
+import board.Position;
 import cell.Cell;
-import cell.Water;
+import cell.Character;
 import cell.ContainerCell;
 import cell.Target;
-import cell.Character;
+import cell.Water;
 
 public class GameFrame extends JFrame {
 	static {
@@ -237,13 +237,13 @@ public class GameFrame extends JFrame {
 				case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
 				}
 				if (direction != null) {
-					ArrayList<Point> changed = board.moveCharacter(direction);
+					ArrayList<Position> changed = board.moveCharacter(direction);
 					if (!changed.isEmpty())
 					try {
 						boolean waterFlag = false;
 						boolean targetFlag = false;
 						updateCellImages(changed, boardPanel);
-						for (Point position : changed) {
+						for (Position position : changed) {
 							Cell actualCell = board.getCell(position.x, position.y);
 							if (actualCell instanceof Water) {waterFlag = true;}
 							if (actualCell instanceof Target && (((Target) actualCell).getContent() instanceof Character)) {targetFlag = true;}
@@ -267,11 +267,11 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	private void updateCellImages(ArrayList<Point> changed,
+	private void updateCellImages(ArrayList<Position> changed,
 			BoardPanel boardPanel) throws IOException {
 		GameImageFactory factory = new GameImageFactory();
-		for (Point position : changed) {
-				Cell c = board.getCell(position.x, position.y);
+		for (Position position : changed) {
+				Cell c = board.getCell(position);
 				boardPanel.setImage(position.y, position.x, ImageUtils.loadImage("./resources/images/cell.png"));
 				if (!(c instanceof Target && !((Target) c).isVisible()))
 					boardPanel.appendImage(position.y, position.x, factory.getImageFor(c));

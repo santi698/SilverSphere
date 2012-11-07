@@ -1,10 +1,10 @@
 package cell;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import board.Board;
 import board.Direction;
+import board.Position;
 
 public class Character extends CellContent {
 
@@ -15,12 +15,12 @@ public class Character extends CellContent {
 		return "Character";
 	}
 
-	public ArrayList<Point> move(Board board, Direction direction) {
+	public ArrayList<Position> move(Board board, Direction direction) {
 		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
-		ArrayList<Point> changed = new ArrayList<Point>();
+		ArrayList<Position> changed = new ArrayList<Position>();
 		if (nextCell instanceof ContainerCell) {
 			ContainerCell nextCellAsContainer = (ContainerCell) nextCell;
-			ArrayList<Point> nextCellChanged = null;
+			ArrayList<Position> nextCellChanged = null;
 			if (!nextCellAsContainer.isEmpty()) {
 				nextCellChanged = nextCellAsContainer.getContent().move(board, direction);
 				changed.addAll(nextCellChanged);
@@ -30,10 +30,10 @@ public class Character extends CellContent {
 				return changed;
 			else {
 				changed.add(position);
-				changed.add(new Point(position.x + direction.x, position.y + direction.y));
+				changed.add(position.next(direction));
 				board.getCell(position.x, position.y).setContent(null);
 				nextCell.setContent(this);
-				this.setPosition(new Point(position.x + direction.x, position.y + direction.y));
+				this.setPosition(position.next(direction));
 				if (nextCell instanceof Water || 
 						(nextCell instanceof Target && ((Target)nextCell).isVisible()))
 					return changed;

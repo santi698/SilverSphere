@@ -3,7 +3,8 @@
 	
 <target name="compile">
 	<mkdir dir="bin"/>
-	<javac srcdir="src" destdir="bin" classpath="lib/junit.jar"/>
+	<javac srcdir="src" destdir="bin"/>
+	<javac srcdir="tests" destdir="bin" classpath="lib/junit.jar"/>
 </target>
 	
 <!-- Crea la documentacion en formato Javadoc, en el directorio doc. -->
@@ -13,10 +14,10 @@
 	
 <!-- Ejecuta los tests. -->
 <target name="tests" depends="compile">
-	<junit>
+	<junit showoutput="true" printsummary="on">
 	<formatter type="brief" usefile="false"/>
 	<classpath path="lib/junit.jar;bin" />
-	<test name="tests.TestParse" />
+	<test name="TestParse" />
 	</junit>
 </target>
 	

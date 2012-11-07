@@ -1,10 +1,10 @@
 package cell;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import board.Board;
 import board.Direction;
+import board.Position;
 
 
 
@@ -26,19 +26,19 @@ public class Box extends CellContent {
 	}
 
 	@Override
-	public ArrayList<Point> move(Board board, Direction direction) {
-		ArrayList<Point> changed = new ArrayList<Point>();
-		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+	public ArrayList<Position> move(Board board, Direction direction) {
+		ArrayList<Position> changed = new ArrayList<Position>();
+		Cell nextCell = board.getCell(position.next(direction));
 		if (!(nextCell instanceof ContainerCell) || !((ContainerCell)nextCell).isEmpty())
 			return changed;
 		changed.add(position);
-		changed.add(new Point(position.x + direction.x, position.y + direction.y));
+		changed.add(position.next(direction));
 		board.getCell(position.x, position.y).setContent(null);
 		if(nextCell instanceof Water)
-			board.setCell(position.x + direction.x, position.y + direction.y, new FloatingBox());
+			board.setCell(position.next(direction), new FloatingBox());
 		else {
 			nextCell.setContent(this);
-			this.setPosition(new Point(position.x + direction.x, position.y + direction.y));
+			this.setPosition(position.next(direction));
 		}
 		return changed;
 	}

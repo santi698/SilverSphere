@@ -1,10 +1,10 @@
 package cell;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import board.Board;
 import board.Direction;
+import board.Position;
 
 /**
  * Clase que representa un cubo de hielo
@@ -26,22 +26,23 @@ public class IceBlock extends CellContent {
 	 * @return una lista de las celdas modificadas como resultado de movimiento
 	 * @see {@link MoveReturnValue}
 	 */
+	
 	//TODO REVISAR!
-	public ArrayList<Point> move(Board board, Direction direction) {
-		ArrayList<Point> changed = new ArrayList<Point>();
-		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+	public ArrayList<Position> move(Board board, Direction direction) {
+		ArrayList<Position> changed = new ArrayList<Position>();
+		Cell nextCell = board.getCell(position.next(direction));
 		if(!(nextCell instanceof ContainerCell) || !nextCell.isEmpty())
 			return changed;
 		changed.add(position);
 		while(nextCell instanceof ContainerCell && nextCell.isEmpty()) {
 			if (nextCell instanceof Water) {
-				board.getCell(position.x, position.y).setContent(null);
+				board.getCell(position).setContent(null);
 				return changed;
 			}
-			board.getCell(position.x, position.y).setContent(null);
+			board.getCell(position).setContent(null);
 			nextCell.setContent(this);
-			setPosition(new Point(position.x + direction.x, position.y + direction.y));
-			nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+			setPosition(position.next(direction));
+			nextCell = board.getCell(position.next(direction));
 		}
 		if (board.getCell(position.x, position.y) instanceof IceBlockTarget) {
 			board.getTargetCell().setVisible();

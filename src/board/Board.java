@@ -1,6 +1,5 @@
 package board;
 
-import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,20 +62,20 @@ public class Board implements Serializable{
 				case '@': 
 					chCount++;
 					character = (Character)actualCell.getContent();
-					character.setPosition(new Point(j, i));
+					character.setPosition(new Position(j, i));
 					break;
 				case 'G': 
 					dCount++;
 					targetCell = (Target) actualCell;
-					targetCell.setPosition(new Point(j, i));
+					targetCell.setPosition(new Position(j, i));
 					break;
 				case 'C': 
 					ibCount++;
-					actualCell.getContent().setPosition(new Point(j, i));
+					actualCell.getContent().setPosition(new Position(j, i));
 					break;
 					
 				case 'K': intCount++; break;
-				case 'B': actualCell.getContent().setPosition(new Point(j, i));
+				case 'B': actualCell.getContent().setPosition(new Position(j, i));
 				}
 			}
 		}
@@ -114,6 +113,9 @@ public class Board implements Serializable{
 			return dataMatrix[y][x];
 		return null;
 	}
+	public Cell getCell(Position p) {
+		return getCell(p.x, p.y);
+	}
 	/**
 	 * Reemplaza el contenido de la celda en la posicion (x, y) por {@code cell}
 	 * @param x
@@ -123,6 +125,9 @@ public class Board implements Serializable{
 	public void setCell(int x, int y, Cell cell) {
 		if (x < columns && y < rows)
 			dataMatrix[y][x] = cell;
+	}
+	public void setCell(Position p, Cell cell) {
+		setCell(p.x, p.y, cell);
 	}
 	/**
 	 * Obtiene una referencia a la celda destino del tablero.
@@ -151,7 +156,7 @@ public class Board implements Serializable{
 	 * @see {@link cell.MoveReturnValue}
 	 * @see {@link Direction}
 	 */
-	public ArrayList<Point> moveCharacter(Direction direction) {
+	public ArrayList<Position> moveCharacter(Direction direction) {
 		return character.move(this, direction);
 	}
 
