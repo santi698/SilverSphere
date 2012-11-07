@@ -8,6 +8,7 @@ import cell.Cell;
 import cell.CellFactory;
 import cell.Character;
 import cell.Target;
+import cell.Water;
 
 /** 
  * Clase que representa el tablero de juego.
@@ -153,5 +154,24 @@ public class Board implements Serializable{
 		return character.move(this, direction);
 	}
 
+	public MoveRes checkMove(ArrayList<Position> posList) {
+		if (!posList.isEmpty()) {
+			
+			for (Position position : posList) {
+				
+				Cell actualCell = getCell(position.x, position.y);
+				if (actualCell instanceof Water) {
+					return MoveRes.WATER_REACHED;
+					
+				}
+				if (actualCell instanceof Target &&
+						((Target) actualCell).isVisible() && 
+						(((Target) actualCell).getContent() instanceof Character)) {
+					return MoveRes.PLAYER_WON;
+				}
+			}
+		}
+		return MoveRes.OK;
 	
+	}
 }

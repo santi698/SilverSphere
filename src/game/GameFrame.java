@@ -34,12 +34,11 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import board.Board;
 import board.Direction;
 import board.InvalidLevelException;
+import board.MoveRes;
 import board.Position;
 import cell.Cell;
-import cell.Character;
 import cell.ContainerCell;
 import cell.Target;
-import cell.Water;
 
 public class GameFrame extends JFrame {
 	static {
@@ -143,11 +142,7 @@ public class GameFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				File f = askForFile("saved");
 				if (f != null)
-					try {
-						loadGame(f);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+				loadGame(f);
 				requestFocus();
 			}
 		});
@@ -250,34 +245,22 @@ public class GameFrame extends JFrame {
 				case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
 				}
 				if (direction != null) {
-					//TODO Mover al backend
+					MoveRes ret;
 					ArrayList<Position> changed = board.moveCharacter(direction);
-					if (!changed.isEmpty())
+					ret = board.checkMove(changed);
+					
 					try {
-						boolean waterFlag = false;
-						boolean targetFlag = false;
-						for (Position position : changed) {
-							Cell actualCell = board.getCell(position.x, position.y);
-							if (actualCell instanceof Water) {waterFlag = true;}
-							if (actualCell instanceof Target &&
-									((Target) actualCell).isVisible() && 
-									(((Target) actualCell).getContent() instanceof Character)) {
-								targetFlag = true;
-								}
-						}
 						updateCellImages(changed, boardPanel);
-						if (waterFlag) {
-							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
-							startGame();
-
-						}
-						if (targetFlag) {
-							JOptionPane.showMessageDialog(this, "Has ganado!");
-							returnToMenu();
-						}
-
 					} catch (IOException e1) {
 						e1.printStackTrace();
+					}
+					if (ret.equals(MoveRes.WATER_REACHED)) {
+						JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
+						startGame();
+					}
+					if (ret.equals(MoveRes.PLAYER_WON)) {
+						JOptionPane.showMessageDialog(this, "Has ganado!");
+						returnToMenu();
 					}
 					
 				}
@@ -332,7 +315,7 @@ public class GameFrame extends JFrame {
 	 * @param f
 	 * @throws IOException
 	 */
-	private void loadGame(File f) throws IOException {
+	private void loadGame(File f) {
 		ObjectInputStream inStream = null;
 		try {
 			inStream = new ObjectInputStream(new FileInputStream(f));
@@ -345,19 +328,17 @@ public class GameFrame extends JFrame {
 			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
 			center();
 			
-		} catch (ClassNotFoundException e1) {
-			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
-					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
-		} catch (StreamCorruptedException e1) {
-			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
-					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
-		} catch (ClassCastException e) {
+		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
 					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
 		}
 		finally {
 			if (inStream != null)
-				inStream.close();
+				try {
+					inStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 	/**
