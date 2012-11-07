@@ -25,6 +25,12 @@ public class Box extends CellContent {
 		return "Box";
 	}
 
+	/**
+	 * método que valida y ejecuta el movimiento del objeto.
+	 * @param board
+	 * @param direction
+	 * @return ArrayList<Position> 
+	 */
 	@Override
 	public ArrayList<Position> move(Board board, Direction direction) {
 		

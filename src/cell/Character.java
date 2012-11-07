@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import board.Board;
 import board.Direction;
 import board.Position;
-
+/**
+ * Clase que representa al jugador dentro del tablero
+ * 
+ */
 public class Character extends CellContent {
 
 	private static final long serialVersionUID = 1L;
@@ -15,6 +18,12 @@ public class Character extends CellContent {
 		return "Character";
 	}
 
+	/**
+	 * Método que valida el movimiento y lo ejecuta
+	 * @param direction
+	 * @param board
+	 * @return ArrayList<Position>
+	 */
 	public ArrayList<Position> move(Board board, Direction direction) {
 		
 		ArrayList<Position> changed = new ArrayList<Position>();

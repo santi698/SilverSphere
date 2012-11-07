@@ -102,6 +102,11 @@ public class Board implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Retorna la celda en la posicón {@code p}.
+	 * @param p en un {@code Position}
+	 * @return 
+	 */
 	public Cell getCell(Position p) {
 		return getCell(p.x, p.y);
 	}
@@ -117,6 +122,11 @@ public class Board implements Serializable{
 			dataMatrix[y][x] = cell;
 	}
 	
+	/**
+	 * Reemplaza el contenido de la celda en la posicion {@p} por {@code cell}
+	 * @param p una posición
+	 * @param cell la celda que va a reemplazar a la que esta en la posiciÃ³n (x, y)
+	 */
 	public void setCell(Position p, Cell cell) {
 		setCell(p.x, p.y, cell);
 	}
@@ -153,6 +163,12 @@ public class Board implements Serializable{
 		return character.move(this, direction);
 	}
 
+	/**
+	 * Método que verifica que el movimiento se haya efectuado. Además determina
+	 *  cuando un jugador ganó o cayó al agua.
+	 * @param posList 
+	 * @return
+	 */
 	public MoveRes checkMove(ArrayList<Position> posList) {
 		if (!posList.isEmpty()) {
 			

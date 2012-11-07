@@ -2,7 +2,11 @@ package board;
 
 import java.io.Serializable;
 
-
+/**
+ * Clase que representa una posición a través de variables ( x , y )
+ * 
+ *
+ */
 public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public final int x;
@@ -13,6 +17,11 @@ public class Position implements Serializable {
 		this.y = y;
 	}
 
+	/**
+	 * Método que calcula una nueva {@code Position} a partir de una direccion.
+	 * @param d 
+	 * @return una nueva Position
+	 */
 	public Position next(Direction d) {
 		return new Position(x + d.x, y + d.y);
 	}
