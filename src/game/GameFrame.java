@@ -58,102 +58,39 @@ public class GameFrame extends JFrame {
 	private static final Dimension INITIAL_SIZE = new Dimension(150, 120);
 	private static final int CELL_SIZE = 30;
 	
-	Board board;
+	private Board board;
 	
-	JPanel menuPanel = new JPanel();
-	JButton newGameButton = new JButton("New Game");
-	JButton loadGameButton = new JButton("Load Game");
-	JButton exitButton = new JButton("Exit");
+	private JPanel menuPanel = new JPanel();
+	private JButton newGameButton = new JButton("New Game");
+	private JButton loadGameButton = new JButton("Load Game");
+	private JButton exitButton = new JButton("Exit");
 		
-	JPanel gameMenuPanel = new JPanel();
-	JButton backToMenuButton = new JButton("Back");
-	JButton saveGameButton = new JButton("Save");
-	JButton restartGameButton = new JButton("Restart Level");
+	private JPanel gameMenuPanel = new JPanel();
+	private JButton backToMenuButton = new JButton("Back");
+	private JButton saveGameButton = new JButton("Save");
+	private JButton restartGameButton = new JButton("Restart Level");
 	
-	BoardPanel boardPanel;
+	private BoardPanel boardPanel;
 
-	File actualLevelFile = null;
+	private File actualLevelFile = null;
 	
 	GameFrame() {
 		super("SilverSphere");
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				respondToKeyEvent(e);
-
-			}
-		});
-
 		
-		newGameButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				actualLevelFile = askForFile("resources/levels");
-				if (actualLevelFile != null)
-					startGame();
-				else
-					requestFocus();
-			}
-		});
+		setUI();
 		
-		loadGameButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				File f = askForFile("saved");
-				if (f != null)
-				try {
-					loadGame(f);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				requestFocus();
-			}
-		});
+		connectEvents();
 		
-		exitButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-				
-			}
-		});
-		backToMenuButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				returnToMenu();
-				requestFocus();
-			}
-		});
-		saveGameButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				File f = askForFile("saved");
-				if (f != null)
-				try {
-					saveGame(f);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				requestFocus();
-			}	
-		});
-		restartGameButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (actualLevelFile != null)
-					startGame();
-				else
-					JOptionPane.showMessageDialog(gameMenuPanel,
-							"No se conoce la ubicacion del archivo de nivel");
-				requestFocus();
-			}
-		});
+		setSize(INITIAL_SIZE);
+		center();
+		setVisible(true);
+		setFocusable(true);
+	}
 
+	/**
+	 * Inicializa y configura los elementos de la interfaz gráfica.
+	 */
+	private void setUI() {
 		
 		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		newGameButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -177,16 +114,92 @@ public class GameFrame extends JFrame {
 		Container contentPane = getContentPane();
 		contentPane.add(menuPanel, BorderLayout.CENTER);
 		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
-		
-//		setResizable(false);
-		setSize(INITIAL_SIZE);
-		center();
-		setVisible(true);
-		setFocusable(true);
 	}
 	
+	private void connectEvents() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				respondToKeyEvent(e);
+
+			}
+		});
+		
+		newGameButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				actualLevelFile = askForFile("resources/levels");
+				if (actualLevelFile != null)
+					startGame();
+				else
+					requestFocus();
+			}
+		});
+		
+		loadGameButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File f = askForFile("saved");
+				if (f != null)
+					try {
+						loadGame(f);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				requestFocus();
+			}
+		});
+		
+		exitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				
+			}
+		});
+		
+		backToMenuButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				returnToMenu();
+				requestFocus();
+			}
+		});
+		
+		saveGameButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File f = askForFile("saved");
+				if (f != null)
+				try {
+					saveGame(f);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				requestFocus();
+			}	
+		});
+		
+		restartGameButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (actualLevelFile != null)
+					startGame();
+				else
+					JOptionPane.showMessageDialog(gameMenuPanel,
+							"No se conoce la ubicacion del archivo de nivel");
+				requestFocus();
+			}
+		});		
+	}
+
 	/**
-	 * m�todo que se encarga de guardar el juego. 
+	 * metodo que se encarga de guardar el juego. 
 	 * @param f
 	 * @throws IOException
 	 */
@@ -282,9 +295,9 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Pide un archivo, arma el tablero en base a el y lo muestra.
 	 */
-	void startGame() {
+	private void startGame() {
 		try {
 			if (boardPanel != null)
 				boardPanel.setVisible(false);
@@ -301,7 +314,6 @@ public class GameFrame extends JFrame {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} catch (InvalidLevelException e1) {
-			System.err.println(e1.getMessage());
 			JOptionPane.showMessageDialog(this,
 					e1.getMessage(), "Error al cargar el nivel", JOptionPane.ERROR_MESSAGE);
 			
@@ -311,11 +323,11 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Carga un juego guardado a partir del archivo f
 	 * @param f
 	 * @throws IOException
 	 */
-	void loadGame(File f) throws IOException {
+	private void loadGame(File f) throws IOException {
 		ObjectInputStream inStream = null;
 		try {
 			inStream = new ObjectInputStream(new FileInputStream(f));
@@ -345,7 +357,7 @@ public class GameFrame extends JFrame {
 	 * @param path
 	 * @return
 	 */
-	File askForFile(String path) {
+	private File askForFile(String path) {
 		JFileChooser chooser = new JFileChooser(path);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 			return chooser.getSelectedFile();
@@ -359,7 +371,7 @@ public class GameFrame extends JFrame {
 	 * @throws IOException
 	 * @throws InvalidLevelException en caso de que el nivel que se intenta cargar no sea v�lido.
 	 */
-	Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
+	private Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
 		Scanner scanner = null;
 		ArrayList<String> lines = new ArrayList<String>();
 		try {
@@ -387,7 +399,7 @@ public class GameFrame extends JFrame {
 	 * @throws IOException
 	 * @see {@link IOException}
 	 */
-	public static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
+	private static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
 		GameImageFactory factory = new GameImageFactory();
 		for (int i = 0; i < board.rows; i++) {
 			for (int j = 0; j < board.columns; j++) {
@@ -405,7 +417,7 @@ public class GameFrame extends JFrame {
 	/**
 	 * 
 	 */
-	public void center() {
+	private void center() {
 		Toolkit t = getToolkit();
 		Dimension d = t.getScreenSize();
 		setLocation((d.width - getWidth())/2,(d.height-getHeight())/2);

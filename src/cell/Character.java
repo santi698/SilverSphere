@@ -16,29 +16,35 @@ public class Character extends CellContent {
 	}
 
 	public ArrayList<Position> move(Board board, Direction direction) {
-		Cell nextCell = board.getCell(position.x + direction.x, position.y + direction.y);
+		
 		ArrayList<Position> changed = new ArrayList<Position>();
+		Position nextPos = position.next(direction);
+		Cell nextCell = board.getCell(nextPos);
+
 		if (nextCell instanceof ContainerCell) {
-			ContainerCell nextCellAsContainer = (ContainerCell) nextCell;
+			ContainerCell nextContainer = (ContainerCell) nextCell;
 			ArrayList<Position> nextCellChanged = null;
-			if (!nextCellAsContainer.isEmpty()) {
-				nextCellChanged = nextCellAsContainer.getContent().move(board, direction);
+			
+			if (!nextContainer.isEmpty()) {
+				nextCellChanged = nextContainer.getContent().move(board, direction);
 				changed.addAll(nextCellChanged);
 			}
+			
 			if (nextCellChanged != null &&
 					nextCellChanged.isEmpty())
 				return changed;
 			else {
 				changed.add(position);
-				changed.add(position.next(direction));
-				board.getCell(position.x, position.y).setContent(null);
+				changed.add(nextPos);
+				board.getCell(position).setContent(null);
 				nextCell.setContent(this);
-				this.setPosition(position.next(direction));
+				this.setPosition(nextPos);
 				if (nextCell instanceof Water || 
 						(nextCell instanceof Target && ((Target)nextCell).isVisible()))
 					return changed;
 			}
 		}
+		
 		return changed;
 
 	}

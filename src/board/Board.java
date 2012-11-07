@@ -4,15 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import cell.Box;
 import cell.Cell;
+import cell.CellFactory;
 import cell.Character;
-import cell.ContainerCell;
-import cell.IceBlock;
-import cell.IceBlockTarget;
 import cell.Target;
-import cell.Tree;
-import cell.Water;
 
 /** 
  * Clase que representa el tablero de juego.
@@ -47,61 +42,53 @@ public class Board implements Serializable{
 	 * @param s Un array de {@code String}s donde cada elemento es una fila del tablero
 	 * @throws InvalidLevelException Cuando el nivel no respeta el formato estándar
 	 */
-	//TODO MODULARIZAR/REESCRIBIR
 	public Board(String[] s) throws InvalidLevelException {
-		this(s.length, s[0].length()); 
-		int chCount = 0, dCount = 0, ibCount = 0, intCount = 0;
+		this(s.length, s[0].length());
+		parse(s);
+	}
+	
+	/**
+	 * @param s
+	 * @throws InvalidLevelException
+	 */
+	private void parse(String[] s) throws InvalidLevelException {
+		CellFactory f = new CellFactory();
 		for (int i = 0; i < rows; i++) {
 			if (s[i].length() != columns)
 				throw new InvalidLevelException("El tablero debe ser rectangular.");
 			for (int j = 0; j < columns; j++) {
 				char c = s[i].charAt(j);
-				Cell actualCell = charToCell(c);
+				Cell actualCell = f.createCell(c);
 				dataMatrix[i][j] = actualCell;
 				switch (c) {
 				case '@': 
-					chCount++;
 					character = (Character)actualCell.getContent();
 					character.setPosition(new Position(j, i));
 					break;
 				case 'G': 
-					dCount++;
 					targetCell = (Target) actualCell;
 					targetCell.setPosition(new Position(j, i));
 					break;
 				case 'C': 
-					ibCount++;
 					actualCell.getContent().setPosition(new Position(j, i));
 					break;
 					
-				case 'K': intCount++; break;
 				case 'B': actualCell.getContent().setPosition(new Position(j, i));
 				}
 			}
 		}
-		if (chCount != 1 || ibCount == 0 || dCount != 1 || intCount > 1)
+		if (f.getCount('@') != 1 || f.getCount('C') == 0 ||
+				f.getCount('G') != 1 || f.getCount('K') > 1)
 			throw new InvalidLevelException("Debe haber exactamente un personaje, un destino" +
 					", al menos un cubo de hielo, y no más de un interruptor." +
-					"\n Personajes: " + chCount + ", Destinos: " + dCount + ", Cubos de hielo: " +
-							"" + ibCount + ", Interruptores:" + intCount + ".");
-		if (intCount == 0) {
+					"\n Personajes: " + f.getCount('@') + ", Destinos: " + f.getCount('G') +
+					", Cubos de hielo: " + f.getCount('C') + 
+					", Interruptores:" + f.getCount('K') + ".");
+		if (f.getCount('K') == 0) {
 			targetCell.setVisible();
 		}
-		}
-	//TODO Pasar a una clase aparte
-	private static Cell charToCell(char c) throws InvalidLevelException {
-		switch (c) {
-		case 'T': return new Tree();
-		case '#': return new Water();
-		case 'K': return new IceBlockTarget();
-		case 'C': return new ContainerCell(new IceBlock());
-		case 'B': return new ContainerCell(new Box());
-		case 'G': return new Target();
-		case '@': return new ContainerCell(new Character());
-		case ' ': return new ContainerCell();
-		default: throw new InvalidLevelException("Caracter Inválido.");
-		}
 	}
+	
 	/**
 	 * Retorna la celda en la posición (x, y)
 	 * @param x 
@@ -113,9 +100,11 @@ public class Board implements Serializable{
 			return dataMatrix[y][x];
 		return null;
 	}
+	
 	public Cell getCell(Position p) {
 		return getCell(p.x, p.y);
 	}
+	
 	/**
 	 * Reemplaza el contenido de la celda en la posicion (x, y) por {@code cell}
 	 * @param x
@@ -126,9 +115,11 @@ public class Board implements Serializable{
 		if (x < columns && y < rows)
 			dataMatrix[y][x] = cell;
 	}
+	
 	public void setCell(Position p, Cell cell) {
 		setCell(p.x, p.y, cell);
 	}
+	
 	/**
 	 * Obtiene una referencia a la celda destino del tablero.
 	 * @return La celda destino
@@ -137,6 +128,7 @@ public class Board implements Serializable{
 	public Target getTargetCell() {
 		return targetCell;
 	}
+	
 	/**
 	 * Para debugging
 	 */
@@ -149,6 +141,7 @@ public class Board implements Serializable{
 		}
 		return s.toString();
 	}
+	
 	/**
 	 * Mueve al personaje en la direccion especificada. 
 	 * @param direction La direccion en la que se debe mover el personaje
