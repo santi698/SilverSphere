@@ -15,9 +15,14 @@
 <!-- Ejecuta los tests. -->
 <target name="tests" depends="compile">
 	<junit showoutput="true" printsummary="on">
-	<formatter type="brief" usefile="false"/>
-	<classpath path="lib/junit.jar;bin" />
-	<test name="tests.TestParse" />
+		<formatter type="brief" usefile="false"/>
+		<classpath path="lib/junit.jar;bin" />
+		<test name="tests.TestMove" />
+	</junit>
+	<junit>
+		<formatter type="brief" usefile="false"/>
+		<classpath path="lib/junit.jar;bin"/>
+		<test name="tests.TestParse"/>
 	</junit>
 </target>
 	

@@ -14,6 +14,7 @@ import board.MoveRes;
 import board.Position;
 import cell.Box;
 import cell.Character;
+import cell.FloatingBox;
 
 
 	public class TestMove {
@@ -38,14 +39,13 @@ import cell.Character;
 		
 		@Test
 		public void wrongMove() throws InvalidLevelException{
-			String[] sArr2 = new String[3];
-			sArr2[0]= "BBG";
-			sArr2[1]= "@T ";
-			sArr2[2]= "C K";
-		
-
+			String[] sArr = {
+					"BBG",
+					"@T ",
+					"C K"
+					};
 			
-			Board board2 = new Board(sArr2);
+			Board board = new Board(sArr);
 			Direction dirOutBoard = Direction.LEFT;
 			Direction dirIce = Direction.DOWN;
 			Direction dirInmobileBox = Direction.UP;
@@ -59,44 +59,71 @@ import cell.Character;
 			
 			
 			
-			assertTrue(board2.moveCharacter(dirOutBoard).isEmpty()); 
-			assertTrue(board2.moveCharacter(dirTree).isEmpty());
-			assertTrue(board2.moveCharacter(dirInmobileBox).isEmpty());
-			assertTrue(board2.moveCharacter(dirIce).isEmpty());	
-			assertTrue(board2.getCell( 0 , 0 ).getContent().move(board2, Direction.RIGHT).isEmpty());	
+			assertTrue(board.moveCharacter(dirOutBoard).isEmpty()); 
+			assertTrue(board.moveCharacter(dirTree).isEmpty());
+			assertTrue(board.moveCharacter(dirInmobileBox).isEmpty());
+			assertTrue(board.moveCharacter(dirIce).isEmpty());	
+			assertTrue(board.getCell( 0 , 0 ).getContent().move(board, Direction.RIGHT).isEmpty());	
 		}
 		
-		
 		@Test
-		public void terminalMove() throws InvalidLevelException{
+		public void testWater() throws InvalidLevelException {
+			//Asegura que se detecte cuando el jugador cae al agua
+			String[] sArr = 
+				{ "###C",
+				  "#@#G",
+				  "### "
+				};
+			for (Direction d : Direction.values()) {
+				Board b = new Board(sArr);
+				MoveRes res = b.checkMove(b.moveCharacter(d));
+				assertEquals(res, MoveRes.WATER_REACHED);
+			}
+			//Asegura que las cajas se conviertan en cajas 
+			//flotantes al caer al agua
+			String[] sArr2 = {
+					"#####",
+					"##B##",
+					"#B@B#",
+					"  BCG",
+					"#####"
+			};
+			for (Direction d : Direction.values()) {
+				Board b = new Board(sArr2);
+				Position boxPos = new Position(2, 2).next(d).next(d);
+				ArrayList<Position> changed = b.moveCharacter(d);
+				assertTrue(changed.contains(boxPos));
+			}
 			
-			String[] sArr3 = new String[4];
-			sArr3[0]= "B BG";
-			sArr3[1]= "@#KB";
-			sArr3[2]= "B CB";
-			sArr3[3]= "#   ";	
+		}
+		@Test
+		public void testWin() throws InvalidLevelException{
 			
-			Board board3 = new Board(sArr3);
+			String[] sArr1 = new String[4];
+			sArr1[0]= "B BB";
+			sArr1[1]= "@# B";
+			sArr1[2]= "B CK";
+			sArr1[3]= "# G ";	
 			
+			Board board1 = new Board(sArr1);
+			Board board2 = new Board(sArr1);
+			ArrayList<Position> changed;
 			
 			//Revisar las direcciones.
 			
-			board3.moveCharacter(Direction.DOWN);
-			assertEquals(board3.getCell( 0 , 3 ).toString(), "Floating Box");
+			board1.moveCharacter(Direction.DOWN);
+			assertTrue(board1.getCell( 0 , 3 ) instanceof FloatingBox);
+			board1.moveCharacter(Direction.RIGHT);
+			board1.moveCharacter(Direction.RIGHT);
+			assertTrue(board1.getTargetCell().isVisible());
+			changed = board1.moveCharacter(Direction.DOWN);
+			assertEquals(board1.checkMove(changed), MoveRes.PLAYER_WON);
 			
-			board3.moveCharacter(Direction.RIGHT);
-			board3.moveCharacter(Direction.DOWN);
-			board3.moveCharacter(Direction.RIGHT);
-			board3.moveCharacter(Direction.UP);
-			//assertEquals(board3.getCell( 2 , 1 ).toString(), "Interruptor +" + board3.getCell( 2 , 1 ).getContent() );
-			
-			//assertEquals(board3.checkMove(board3.moveCharacter(Direction.RIGHT)),  MoveRes.WATER_REACHED);
-
-		
-			/*
-			 * Falta resolver los Tres comentarios de arriba. Después creo que todo está cubierto.
-			 */
-			
+			changed = board2.moveCharacter(Direction.RIGHT);
+			assertEquals(board2.checkMove(changed), MoveRes.WATER_REACHED);
+			board1.moveCharacter(Direction.DOWN);
+			board1.moveCharacter(Direction.RIGHT);
+			board1.moveCharacter(Direction.UP);			
 			
 			
 			
