@@ -124,7 +124,7 @@ public class Board implements Serializable{
 	/**
 	 * Obtiene una referencia a la celda destino del tablero.
 	 * @return La celda destino
-	 * @see {@link Target}
+	 * @see {@link cell.Target}
 	 */
 	public Target getTargetCell() {
 		return targetCell;
@@ -147,8 +147,7 @@ public class Board implements Serializable{
 	 * Mueve al personaje en la direccion especificada. 
 	 * @param direction La direccion en la que se debe mover el personaje
 	 * @return Una lista con las posiciones del tablero que fueron modificadas. 
-	 * @see {@link cell.MoveReturnValue}
-	 * @see {@link Direction}
+	 * @see {@link board.Direction}
 	 */
 	public ArrayList<Position> moveCharacter(Direction direction) {
 		return character.move(this, direction);

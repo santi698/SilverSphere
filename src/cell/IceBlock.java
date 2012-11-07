@@ -24,7 +24,6 @@ public class IceBlock extends CellContent {
 	 * @param board
 	 * @param direction
 	 * @return una lista de las celdas modificadas como resultado de movimiento
-	 * @see {@link MoveReturnValue}
 	 */
 	
 	public ArrayList<Position> move(Board board, Direction direction) {
