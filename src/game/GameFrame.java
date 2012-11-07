@@ -250,12 +250,12 @@ public class GameFrame extends JFrame {
 				case KeyEvent.VK_LEFT: direction = Direction.LEFT; break;
 				}
 				if (direction != null) {
+					//TODO Mover al backend
 					ArrayList<Position> changed = board.moveCharacter(direction);
 					if (!changed.isEmpty())
 					try {
 						boolean waterFlag = false;
 						boolean targetFlag = false;
-						updateCellImages(changed, boardPanel);
 						for (Position position : changed) {
 							Cell actualCell = board.getCell(position.x, position.y);
 							if (actualCell instanceof Water) {waterFlag = true;}
@@ -265,6 +265,7 @@ public class GameFrame extends JFrame {
 								targetFlag = true;
 								}
 						}
+						updateCellImages(changed, boardPanel);
 						if (waterFlag) {
 							JOptionPane.showMessageDialog(this, "Has perdido, el jugador cayó al agua");
 							startGame();

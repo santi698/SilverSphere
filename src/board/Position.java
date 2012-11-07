@@ -1,12 +1,15 @@
 package board;
 
-import java.awt.Point;
+import java.io.Serializable;
 
-public class Position extends Point {
+
+public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public int x;
+	public int y;
 	public Position(int x, int y) {
-		super(x, y);
+		this.x = x;
+		this.y = y;
 	}
 
 	public Position next(Direction d) {
