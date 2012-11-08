@@ -2,7 +2,10 @@ package cell;
 
 import java.io.Serializable;
 
-
+/**
+ * Clase que representa las celdas del tablero de juego.
+ *
+ */
 public abstract class Cell implements Serializable{
 
 	private static final long serialVersionUID = 1L;

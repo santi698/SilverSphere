@@ -40,6 +40,10 @@ import cell.Cell;
 import cell.ContainerCell;
 import cell.Target;
 
+/**
+ * 
+ *
+ */
 public class GameFrame extends JFrame {
 	static {
 		try {
@@ -114,7 +118,10 @@ public class GameFrame extends JFrame {
 		contentPane.add(menuPanel, BorderLayout.CENTER);
 		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
 	}
-	
+	/**
+	 * Método que se ocupa de dar respuesa a las ineracciones que realice el usuario a travez de
+	 * las opciones habilitadas en los paneles y el ingreso de información por teclado.
+	 */
 	private void connectEvents() {
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -231,8 +238,10 @@ public class GameFrame extends JFrame {
 		}
 
 	/**
-	 * 
-	 * @param e
+	 * Método que determina que acción realizar ante la presión de algun tecla.
+	 * Sólo se responde ante la presión de alguna de las teclas de dirección, intentando mover al jugador hacia
+	 * donde corresponda.
+	 * @param e es un {@code KeyListener} que viene del {@code KeyPress}
 	 */
 	protected void respondToKeyEvent(KeyEvent e) {
 		{
@@ -342,9 +351,9 @@ public class GameFrame extends JFrame {
 		}
 	}
 	/**
-	 * 
-	 * @param path
-	 * @return
+	 * Método que da a elegir un archivo determinado a partir del parámetro {@code path}
+	 * @param path es un strin con el directorio de donde se quiere elegir un archivo
+	 * @return un {@code File} con el archivo elegido o {@code null} si no se eligió ninguno
 	 */
 	private File askForFile(String path) {
 		JFileChooser chooser = new JFileChooser(path);
@@ -385,7 +394,7 @@ public class GameFrame extends JFrame {
 	 * carga las imagenes del tablero lÃ³gico (board) en el tablero grÃ¡fico (boardPanel). 
 	 * @param board 
 	 * @param boardPanel
-	 * @throws IOException
+	 * @throws IOException en caso que haya habido algún problema con el manejo de los archivos.
 	 * @see {@link IOException}
 	 */
 	private static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
@@ -404,7 +413,7 @@ public class GameFrame extends JFrame {
 	}
 	
 	/**
-	 * 
+	 * Método que se encarga de centrar el panel.
 	 */
 	private void center() {
 		Toolkit t = getToolkit();

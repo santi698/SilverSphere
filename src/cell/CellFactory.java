@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.lang.Character;
 import board.InvalidLevelException;
 
+/**
+ * Clase que se encarga de la creación de las celdas.
+ *
+ */
 public class CellFactory {
 	HashMap<Character, Integer> counts = new HashMap<Character, Integer>();
 	public CellFactory() {
@@ -19,6 +23,13 @@ public class CellFactory {
 		counts.put('@', 0);
 		counts.put(' ', 0);
 	}
+	/**
+	 * Método que crea los nuevos objetos del tablero serún el parámetro que recibe. 
+	 * Además mantiene una cuenta de cuántos elementos crea de cada objeto.
+	 * @param id es un Char que representa alguno de los posibles elementos del juego.
+	 * @return una nueva instancia del objeto pasado.
+	 * @throws InvalidLevelException en caso de que el caracter no corresponda a alguno de los válidos por el juego.
+	 */
 	public Cell createCell(char id) throws InvalidLevelException {
 		counts.put(id, counts.get(id)+1);
 		switch (id) {
@@ -33,6 +44,11 @@ public class CellFactory {
 		default: throw new InvalidLevelException("Caracter InvÃ¡lido.");
 		}
 	}
+	/**
+	 * Método que devuelve la cantidad de objetos creados según el i{@code d} recibido
+	 * @param id 
+	 * @return
+	 */
 	public int getCount(char id) {
 		return counts.get(id);
 	}

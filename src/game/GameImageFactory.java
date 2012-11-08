@@ -18,6 +18,10 @@ import cell.Target;
 import cell.Tree;
 import cell.Water;
 
+/**
+ * Clase que permite manejar las imágenes del juego. 
+ *
+ */
 public class GameImageFactory {
 	public Map<Class<? extends Cell>, Image> cellImages;
 	public Map<Class<? extends CellContent>, Image> cellContentImages;
@@ -39,9 +43,19 @@ public class GameImageFactory {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Método que permite obtenes la imagen de un {@code Cell}
+	 * @param cell
+	 * @return un {@code Image} con la imagen esperada
+	 */
 	public Image getImageFor(Cell cell) {
 		return cellImages.get(cell.getClass());
 	}
+	/**
+	 * Método que permite obtenes la imagen de un {@code CellContent}
+	 * @param cellContent
+	 * @return un {@code Image} con la imagen esperada
+	 */
 	public Image getImageFor(CellContent cellContent) {
 		return cellContentImages.get(cellContent.getClass());
 	}
