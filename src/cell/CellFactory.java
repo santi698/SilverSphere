@@ -5,7 +5,7 @@ import java.lang.Character;
 import board.InvalidLevelException;
 
 /**
- * Clase que se encarga de la creación de las celdas.
+ * Clase que se encarga de la creacion de las celdas.
  *
  */
 public class CellFactory {
@@ -24,7 +24,7 @@ public class CellFactory {
 		counts.put(' ', 0);
 	}
 	/**
-	 * Metodo que crea los nuevos objetos del tablero serún el parametro que recibe. 
+	 * Metodo que crea los nuevos objetos del tablero segun el parametro que recibe. 
 	 * Ademas mantiene una cuenta de cuantos elementos crea de cada objeto.
 	 * @param id es un Char que representa alguno de los posibles elementos del juego.
 	 * @return una nueva instancia del objeto pasado.

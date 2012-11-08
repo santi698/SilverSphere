@@ -15,7 +15,7 @@ public class Target extends ContainerCell {
 	private Position position;
 	/**
 	 * 
-	 * @return position {@code Position} con la posición de la instancia.
+	 * @return position {@code Position} con la posicion de la instancia.
 	 */
 	public Position getPosition() {
 		return position;

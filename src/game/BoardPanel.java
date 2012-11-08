@@ -49,7 +49,7 @@ public class BoardPanel extends JPanel {
 	}
 	
 	/**
-	 * Superpone una imagen sobre una celda. Si la celda está vacía, es equivalente a 
+	 * Superpone una imagen sobre una celda. Si la celda esta vacia, es equivalente a 
 	 * usar {@code setImage}. Si la celda no está vacia y la imagen a superponer contiene transparencias,
 	 * entonces se superpone la imagen encima de la existente.
 	 * Para que el cambio se vea reflejado es necesario invocar al metodo repaint.

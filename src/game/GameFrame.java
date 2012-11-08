@@ -36,7 +36,7 @@ import cell.ContainerCell;
 import cell.Target;
 
 /**
- * 
+ * Clase que representa la interfaz gráfica del juego
  *
  */
 public class GameFrame extends JFrame {
@@ -312,6 +312,12 @@ public class GameFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Metodo que se ocupa de la actualizacion de celdas a partir de los parametros dados
+	 * @param changed es un {@link ArrayList} que contiene las posiciones.
+	 * @param boardPanel
+	 * @throws IOException
+	 */
 	private void updateCellImages(ArrayList<Position> changed,
 			BoardPanel boardPanel) throws IOException {
 		GameImageFactory factory = new GameImageFactory();

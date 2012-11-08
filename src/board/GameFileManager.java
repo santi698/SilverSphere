@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
+/**
+ *Clase que se ocupa del manejo de archivos  
+ *
+ */
 public class GameFileManager {
 	private Board board;
 
@@ -38,7 +41,12 @@ public Board loadGame(File f) throws Exception {
 	}
 	return board;
 }
-
+ /**
+  * Metodo que guarda el estado del juego 
+  * @param f
+  * @param board
+  * @throws IOException
+  */
 public void save(File f, Board board) throws IOException {
 	
 	ObjectOutputStream outStream = null;
