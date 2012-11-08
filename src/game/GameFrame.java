@@ -70,6 +70,7 @@ public class GameFrame extends JFrame {
 	private Board board;
 
 	private File actualLevelFile = null;
+	private GameFileManager fm = new GameFileManager();
 	
 	GameFrame() {
 		super("SilverSphere");
@@ -114,7 +115,7 @@ public class GameFrame extends JFrame {
 	}
 	/**
 	 * Metodo que se ocupa de dar respuesa a las ineracciones que realice el usuario a travez de
-	 * las opciones habilitadas en los paneles y el ingreso de información por teclado.
+	 * las opciones habilitadas en los paneles y el ingreso de informaciï¿½n por teclado.
 	 */
 	private void connectEvents() {
 		addKeyListener(new KeyAdapter() {
@@ -200,7 +201,6 @@ public class GameFrame extends JFrame {
 	 * @throws IOException
 	 */
 	protected void saveGame(File f) throws IOException {
-		GameFileManager fm = new GameFileManager();
 		try {
 			fm.save(f);
 		}catch (StreamCorruptedException e1){
@@ -215,7 +215,6 @@ public class GameFrame extends JFrame {
 	 * @throws IOException
 	 */
 	private void loadGame(File f) {
-		GameFileManager fm = new GameFileManager();
 		try{
 			board = fm.loadGame(f);
 			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
@@ -246,7 +245,7 @@ public class GameFrame extends JFrame {
 
 	/**
 	 * Metodo que determina que accion realizar ante la presion de algun tecla.
-	 * Sólo se responde ante la presión de alguna de las teclas de direccion, intentando mover al jugador hacia
+	 * Sï¿½lo se responde ante la presiï¿½n de alguna de las teclas de direccion, intentando mover al jugador hacia
 	 * donde corresponda.
 	 * @param e es un {@code KeyListener} que viene del {@code KeyPress}
 	 */
@@ -302,7 +301,6 @@ public class GameFrame extends JFrame {
 	 * Pide un archivo, arma el tablero en base a el y lo muestra.
 	 */
 	private void startGame() {
-		GameFileManager fm = new GameFileManager();
 		try {
 			if (boardPanel != null)
 				boardPanel.setVisible(false);

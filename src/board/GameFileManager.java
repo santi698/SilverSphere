@@ -31,10 +31,7 @@ public Board loadGame(File f) throws Exception {
 	try {
 		inStream = new ObjectInputStream(new FileInputStream(f));
 		board = (Board) inStream.readObject();
-		} catch (Exception e1) {
-		throw e1;
-	}
-	finally {
+		} finally {
 		if (inStream != null)
 			try {
 				inStream.close();
