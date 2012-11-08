@@ -11,11 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -304,10 +302,11 @@ public class GameFrame extends JFrame {
 	 * Pide un archivo, arma el tablero en base a el y lo muestra.
 	 */
 	private void startGame() {
+		GameFileManager fm = new GameFileManager();
 		try {
 			if (boardPanel != null)
 				boardPanel.setVisible(false);
-			board = loadLevelFromFile(actualLevelFile);
+			board = fm.loadLevelFromFile(actualLevelFile);
 			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
 			boardPanel.setBackground(Color.WHITE);
 			setCellImages(board, boardPanel);
@@ -341,33 +340,7 @@ public class GameFrame extends JFrame {
 		return null;
 	}
 	
-	/**
-	 * metodo que carga un nivel desde un archivo.
-	 * @param f
-	 * @return un tablero nuevo creado en funcion del nivel cargado
-	 * @throws IOException
-	 * @throws InvalidLevelException en caso de que el nivel que se intenta cargar no sea valido.
-	 */
-	private Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
-		Scanner scanner = null;
-		ArrayList<String> lines = new ArrayList<String>();
-		try {
-			scanner = new Scanner(new FileReader (f));
-			scanner.useDelimiter("\n");
-			while (scanner.hasNext()) {
-				lines.add(scanner.nextLine());
-			}
-				
-		} 
-		finally {
-			if (scanner != null) {
-				scanner.close();
-			}
-		}
-		String[] sArr = new String[lines.size()];
-		lines.toArray(sArr);
-		return new Board(sArr);
-	}
+
 
 	/**
 	 * carga las imagenes del tablero logico (board) en el tablero grafico (boardPanel). 
