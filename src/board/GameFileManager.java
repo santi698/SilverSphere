@@ -1,8 +1,5 @@
 package board;
 
-
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,7 +39,7 @@ public Board loadGame(File f) throws Exception {
 	return board;
 }
 
-public void save(File f) throws IOException {
+public void save(File f, Board board) throws IOException {
 	
 	ObjectOutputStream outStream = null;
 	if (f != null) {
@@ -51,7 +48,7 @@ public void save(File f) throws IOException {
 			outStream.writeObject(board);
 			
 		} catch (StreamCorruptedException e1) {
-			throw e1;
+			e1.printStackTrace();;
 		}
 		finally {
 			if (outStream != null)

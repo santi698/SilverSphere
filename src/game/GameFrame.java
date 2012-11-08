@@ -202,7 +202,7 @@ public class GameFrame extends JFrame {
 	 */
 	protected void saveGame(File f) throws IOException {
 		try {
-			fm.save(f);
+			fm.save(f, board);
 		}catch (StreamCorruptedException e1){
 			JOptionPane.showMessageDialog (this, "El archivo esta mal formado", 
 			"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
@@ -219,6 +219,7 @@ public class GameFrame extends JFrame {
 			board = fm.loadGame(f);
 			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
 			setCellImages(board, boardPanel);
+			boardPanel.repaint();
 			menuPanel.setVisible(false);
 			gameMenuPanel.setVisible(true);
 			add(boardPanel, BorderLayout.CENTER);
@@ -231,6 +232,34 @@ public class GameFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Pide un archivo, arma el tablero en base a el y lo muestra.
+	 */
+	private void startGame() {
+		try {
+			if (boardPanel != null)
+				boardPanel.setVisible(false);
+			board = fm.loadLevelFromFile(actualLevelFile);
+			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
+			boardPanel.setBackground(Color.WHITE);
+			setCellImages(board, boardPanel);
+			add(boardPanel);
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 45);
+			center();
+			menuPanel.setVisible(false);
+			boardPanel.setVisible(true);
+			gameMenuPanel.setVisible(true);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (InvalidLevelException e1) {
+			JOptionPane.showMessageDialog(this,
+					e1.getMessage(), "Error al cargar el nivel", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		
+		
+	}
+
 	/**
 	 * metodo que retorna nuevamente al menu inicial.
 	 */
@@ -297,35 +326,6 @@ public class GameFrame extends JFrame {
 		boardPanel.repaint();
 	}
 
-	/**
-	 * Pide un archivo, arma el tablero en base a el y lo muestra.
-	 */
-	private void startGame() {
-		try {
-			if (boardPanel != null)
-				boardPanel.setVisible(false);
-			board = fm.loadLevelFromFile(actualLevelFile);
-			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
-			boardPanel.setBackground(Color.WHITE);
-			setCellImages(board, boardPanel);
-			add(boardPanel);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 45);
-			center();
-			menuPanel.setVisible(false);
-			boardPanel.setVisible(true);
-			gameMenuPanel.setVisible(true);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (InvalidLevelException e1) {
-			JOptionPane.showMessageDialog(this,
-					e1.getMessage(), "Error al cargar el nivel", JOptionPane.ERROR_MESSAGE);
-			
-		}
-		
-		
-	}
-
-	
 	/**
 	 * Metodo que da a elegir un archivo determinado a partir del parametro {@code path}
 	 * @param path es un strin con el directorio de donde se quiere elegir un archivo
