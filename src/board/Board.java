@@ -12,18 +12,14 @@ import cell.Water;
 
 /** 
  * Clase que representa el tablero de juego.
- * 
- * @author santi698
- *
+ * El contenido del tablero de modela con una matriz de {@code cell}s, 
+ * donde cada elemento es una capa del tablero
+ * @see {@link cell.Cell}
  */
 public class Board implements Serializable{
 
 	private static final long serialVersionUID = -6426728114234690441L;
 
-	/**
-	 * El contenido del tablero de modela con una matriz de listas, 
-	 * donde cada elemento es una capa del tablero
-	 */
 	public final int rows, columns;
 	private Cell[][] dataMatrix;
 	private Character character;
@@ -103,9 +99,10 @@ public class Board implements Serializable{
 	}
 	
 	/**
-	 * Retorna la celda en la posicón {@code p}.
-	 * @param p en un {@code Position}
-	 * @return 
+	 * Retorna la celda en la posicon {@code p}.
+	 * @param p Un {@link Position}
+	 * @return la celda en la posicion especificada
+	 * @see {@link Position}
 	 */
 	public Cell getCell(Position p) {
 		return getCell(p.x, p.y);
@@ -123,8 +120,8 @@ public class Board implements Serializable{
 	}
 	
 	/**
-	 * Reemplaza el contenido de la celda en la posicion {@p} por {@code cell}
-	 * @param p una posición
+	 * Reemplaza el contenido de la celda en la posicion {@code p} por {@code cell}
+	 * @param p una {@link Position}
 	 * @param cell la celda que va a reemplazar a la que esta en la posiciÃ³n (x, y)
 	 */
 	public void setCell(Position p, Cell cell) {
@@ -164,10 +161,11 @@ public class Board implements Serializable{
 	}
 
 	/**
-	 * Método que verifica que el movimiento se haya efectuado. Además determina
-	 *  cuando un jugador ganó o cayó al agua.
-	 * @param posList 
-	 * @return
+	 * Metodo que determina si un jugador gano o cayo al agua.
+	 * @param posList una lista de las posiciones modificadas, como retorna {@link Board#moveCharacter(Direction)}
+	 * @return un {@link MoveRes} que indica el resultado.
+	 * @see {@link Board#moveCharacter(Direction)}
+	 * @see {@link MoveRes}
 	 */
 	public MoveRes checkMove(ArrayList<Position> posList) {
 		if (!posList.isEmpty()) {
