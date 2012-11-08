@@ -18,22 +18,22 @@ public class ContainerCell extends Cell implements Serializable{
 		
 	}
 	/**
-	 * Método que se fija si un ContainerCell se encuentra vacío.
-	 * @return {@code True} si está vacío o {@code False} en el otro caso. 
+	 * Metodo que se fija si un ContainerCell se encuentra vacio.
+	 * @return {@code True} si esta vacio o {@code False} en el otro caso. 
 	 */
 	@Override
 	public boolean isEmpty() {
 		return content == null;
 	}
 	/**
-	 * Método que setea la variable {@code c} con el parámetro recibido.
+	 * Metodo que setea la variable {@code c} con el parametro recibido.
 	 * @param c
 	 */
 	public void setContent(CellContent c) {
 		content = c;
 	}
 	/**
-	 * Método que devuelve el contenido.
+	 * Metodo que devuelve el contenido.
 	 * @return content {@code CellContent}
 	 */
 	public CellContent getContent() {

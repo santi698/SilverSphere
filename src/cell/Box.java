@@ -26,7 +26,7 @@ public class Box extends CellContent {
 	}
 
 	/**
-	 * método que valida y ejecuta el movimiento del objeto.
+	 * mï¿½todo que valida y ejecuta el movimiento del objeto.
 	 * @param board
 	 * @param direction
 	 * @return ArrayList<Position> 
@@ -41,11 +41,11 @@ public class Box extends CellContent {
 			return changed;
 		changed.add(position);
 		changed.add(nextPos);
-		board.getCell(position.x, position.y).setContent(null);
+		((ContainerCell)board.getCell(position.x, position.y)).setContent(null);
 		if(nextCell instanceof Water)
 			board.setCell(nextPos, new FloatingBox());
 		else {
-			nextCell.setContent(this);
+			((ContainerCell)nextCell).setContent(this);
 			this.setPosition(nextPos);
 		}
 		return changed;

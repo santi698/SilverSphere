@@ -19,7 +19,7 @@ public class Character extends CellContent {
 	}
 
 	/**
-	 * Método que valida el movimiento y lo ejecuta
+	 * Mï¿½todo que valida el movimiento y lo ejecuta
 	 * @param direction
 	 * @param board
 	 * @return ArrayList<Position>
