@@ -26,7 +26,7 @@ public class Box extends CellContent {
 	}
 
 	/**
-	 * m�todo que valida y ejecuta el movimiento del objeto.
+	 * metodo que valida y ejecuta el movimiento del objeto.
 	 * @param board
 	 * @param direction
 	 * @return ArrayList<Position> 

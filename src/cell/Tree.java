@@ -1,7 +1,7 @@
 package cell;
 
 /**
- * Un arbol, actúa de obstáculo
+ * Un arbol, actua de obstaculo
  * @author santi698
  *
  */

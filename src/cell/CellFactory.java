@@ -24,11 +24,11 @@ public class CellFactory {
 		counts.put(' ', 0);
 	}
 	/**
-	 * Método que crea los nuevos objetos del tablero serún el parámetro que recibe. 
-	 * Además mantiene una cuenta de cuántos elementos crea de cada objeto.
+	 * Metodo que crea los nuevos objetos del tablero serún el parametro que recibe. 
+	 * Ademas mantiene una cuenta de cuantos elementos crea de cada objeto.
 	 * @param id es un Char que representa alguno de los posibles elementos del juego.
 	 * @return una nueva instancia del objeto pasado.
-	 * @throws InvalidLevelException en caso de que el caracter no corresponda a alguno de los válidos por el juego.
+	 * @throws InvalidLevelException en caso de que el caracter no corresponda a alguno de los validos por el juego.
 	 */
 	public Cell createCell(char id) throws InvalidLevelException {
 		counts.put(id, counts.get(id)+1);
@@ -45,7 +45,7 @@ public class CellFactory {
 		}
 	}
 	/**
-	 * Método que devuelve la cantidad de objetos creados según el i{@code d} recibido
+	 * Metodo que devuelve la cantidad de objetos creados segun el i{@code d} recibido
 	 * @param id 
 	 * @return
 	 */

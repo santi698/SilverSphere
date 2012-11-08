@@ -37,7 +37,7 @@ public class Board implements Serializable{
 	}
 	/**
 	 * @param s Un array de {@code String}s donde cada elemento es una fila del tablero
-	 * @throws InvalidLevelException Cuando el nivel no respeta el formato estándar
+	 * @throws InvalidLevelException Cuando el nivel no respeta el formato estandar
 	 */
 	public Board(String[] s) throws InvalidLevelException {
 		this(s.length, s[0].length());
@@ -87,10 +87,10 @@ public class Board implements Serializable{
 	}
 	
 	/**
-	 * Retorna la celda en la posición (x, y)
+	 * Retorna la celda en la posicion (x, y)
 	 * @param x 
 	 * @param y
-	 * @return la celda en la posición (x, y)
+	 * @return la celda en la posicion (x, y)
 	 */
 	public Cell getCell(int x, int y) {
 		if (x >= 0 && x < columns && y >= 0 && y < rows)
@@ -112,7 +112,7 @@ public class Board implements Serializable{
 	 * Reemplaza el contenido de la celda en la posicion (x, y) por {@code cell}
 	 * @param x
 	 * @param y
-	 * @param cell la celda que va a reemplazar a la que esta en la posición (x, y)
+	 * @param cell la celda que va a reemplazar a la que esta en la posicion (x, y)
 	 */
 	public void setCell(int x, int y, Cell cell) {
 		if (x < columns && y < rows)
@@ -122,7 +122,7 @@ public class Board implements Serializable{
 	/**
 	 * Reemplaza el contenido de la celda en la posicion {@code p} por {@code cell}
 	 * @param p una {@link Position}
-	 * @param cell la celda que va a reemplazar a la que esta en la posición (x, y)
+	 * @param cell la celda que va a reemplazar a la que esta en la posicion (x, y)
 	 */
 	public void setCell(Position p, Cell cell) {
 		setCell(p.x, p.y, cell);

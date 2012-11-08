@@ -19,7 +19,7 @@ import cell.Tree;
 import cell.Water;
 
 /**
- * Clase que permite manejar las imágenes del juego. 
+ * Clase que permite manejar las imagenes del juego. 
  *
  */
 public class GameImageFactory {
@@ -44,7 +44,7 @@ public class GameImageFactory {
 		}
 	}
 	/**
-	 * Método que permite obtenes la imagen de un {@code Cell}
+	 * Metodo que permite obtenes la imagen de un {@code Cell}
 	 * @param cell
 	 * @return un {@code Image} con la imagen esperada
 	 */
@@ -52,7 +52,7 @@ public class GameImageFactory {
 		return cellImages.get(cell.getClass());
 	}
 	/**
-	 * Método que permite obtenes la imagen de un {@code CellContent}
+	 * Metodo que permite obtenes la imagen de un {@code CellContent}
 	 * @param cellContent
 	 * @return un {@code Image} con la imagen esperada
 	 */

@@ -14,14 +14,14 @@ public class IceBlockTarget extends ContainerCell {
 	private boolean visible;
 	
 	/**
-	 * Método que determina si el {@code IcesBlockTarget} es visible o no. 
+	 * Metodo que determina si el {@code IcesBlockTarget} es visible o no. 
 	 * @return {@code True} si es visible o {@code False} en caso contrario. 
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 	/**
-	 * Método que determina que la instancia es visible
+	 * Metodo que determina que la instancia es visible
 	 */
 	public void setVisible() {
 		visible = true;

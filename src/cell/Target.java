@@ -21,14 +21,14 @@ public class Target extends ContainerCell {
 		return position;
 	}
 	/**
-	 * Método que se fija si la instancia se encuentra visible.
+	 * Metodo que se fija si la instancia se encuentra visible.
 	 * @return {@code True} si es visible o {@code False} en caso contrario. 
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 	/**
-	 * Método que hace que la instancia sea visible.
+	 * Metodo que hace que la instancia sea visible.
 	 */
 	public void setVisible() {
 		visible = true;
@@ -38,7 +38,7 @@ public class Target extends ContainerCell {
 		return "Destino + " + this.getContent();
 	}
 	/**
-	 * Método que fija la posición de la instancia según el parámetro recibido. 
+	 * Metodo que fija la posicion de la instancia segun el parametro recibido. 
 	 * @param pos
 	 */
 	public void setPosition(Position pos) {

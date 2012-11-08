@@ -12,7 +12,7 @@ public abstract class Cell implements Serializable{
 	private CellContent content = null;
 	/**
 	 * 
-	 * @return {@code true} si la celda está vacía, {@code false} sino.
+	 * @return {@code true} si la celda esta vacia, {@code false} sino.
 	 */
 	public boolean isEmpty() {
 		return content == null;

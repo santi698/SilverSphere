@@ -1,6 +1,6 @@
 package board;
 /**
- * Excepcion lanzada por {@link Board} cuando el tablero recibido es inválido.
+ * Excepcion lanzada por {@link Board} cuando el tablero recibido es invalido.
  * @author santi698
  *
  */

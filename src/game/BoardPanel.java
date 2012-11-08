@@ -40,7 +40,7 @@ public class BoardPanel extends JPanel {
 	}
 	
 	/**
-	 * Coloca una imagen en una celda determinada. Si la celda ya contenía otra imagen,
+	 * Coloca una imagen en una celda determinada. Si la celda ya contenia otra imagen,
 	 * la reemplaza. Para que el cambio se vea reflejado es necesario invocar al metodo repaint.
 	 */
 	public void setImage(int row, int column, Image image) {
@@ -50,7 +50,7 @@ public class BoardPanel extends JPanel {
 	
 	/**
 	 * Superpone una imagen sobre una celda. Si la celda está vacía, es equivalente a 
-	 * usar {@code setImage}. Si la celda no está vacía y la imagen a superponer contiene transparencias,
+	 * usar {@code setImage}. Si la celda no está vacia y la imagen a superponer contiene transparencias,
 	 * entonces se superpone la imagen encima de la existente.
 	 * Para que el cambio se vea reflejado es necesario invocar al metodo repaint.
 	 */

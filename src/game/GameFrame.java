@@ -91,7 +91,7 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * Inicializa y configura los elementos de la interfaz grÃ¡fica.
+	 * Inicializa y configura los elementos de la interfaz grafica.
 	 */
 	private void setUI() {
 		
@@ -119,7 +119,7 @@ public class GameFrame extends JFrame {
 		contentPane.add(gameMenuPanel, BorderLayout.NORTH);
 	}
 	/**
-	 * Método que se ocupa de dar respuesa a las ineracciones que realice el usuario a travez de
+	 * Metodo que se ocupa de dar respuesa a las ineracciones que realice el usuario a travez de
 	 * las opciones habilitadas en los paneles y el ingreso de información por teclado.
 	 */
 	private void connectEvents() {
@@ -238,8 +238,8 @@ public class GameFrame extends JFrame {
 		}
 
 	/**
-	 * Método que determina que acción realizar ante la presión de algun tecla.
-	 * Sólo se responde ante la presión de alguna de las teclas de dirección, intentando mover al jugador hacia
+	 * Metodo que determina que accion realizar ante la presion de algun tecla.
+	 * Sólo se responde ante la presión de alguna de las teclas de direccion, intentando mover al jugador hacia
 	 * donde corresponda.
 	 * @param e es un {@code KeyListener} que viene del {@code KeyPress}
 	 */
@@ -351,9 +351,9 @@ public class GameFrame extends JFrame {
 		}
 	}
 	/**
-	 * Método que da a elegir un archivo determinado a partir del parámetro {@code path}
+	 * Metodo que da a elegir un archivo determinado a partir del parametro {@code path}
 	 * @param path es un strin con el directorio de donde se quiere elegir un archivo
-	 * @return un {@code File} con el archivo elegido o {@code null} si no se eligió ninguno
+	 * @return un {@code File} con el archivo elegido o {@code null} si no se eligio ninguno
 	 */
 	private File askForFile(String path) {
 		JFileChooser chooser = new JFileChooser(path);
@@ -363,11 +363,11 @@ public class GameFrame extends JFrame {
 	}
 	
 	/**
-	 * mï¿½todo que carga un nivel desde un archivo.
+	 * metodo que carga un nivel desde un archivo.
 	 * @param f
-	 * @return un tablero nuevo creado en funciï¿½n del nivel cargado
+	 * @return un tablero nuevo creado en funcion del nivel cargado
 	 * @throws IOException
-	 * @throws InvalidLevelException en caso de que el nivel que se intenta cargar no sea vï¿½lido.
+	 * @throws InvalidLevelException en caso de que el nivel que se intenta cargar no sea valido.
 	 */
 	private Board loadLevelFromFile(File f) throws IOException, InvalidLevelException {
 		Scanner scanner = null;
@@ -391,10 +391,10 @@ public class GameFrame extends JFrame {
 	}
 
 	/**
-	 * carga las imagenes del tablero lÃ³gico (board) en el tablero grÃ¡fico (boardPanel). 
+	 * carga las imagenes del tablero logico (board) en el tablero grafico (boardPanel). 
 	 * @param board 
 	 * @param boardPanel
-	 * @throws IOException en caso que haya habido algún problema con el manejo de los archivos.
+	 * @throws IOException en caso que haya habido algun problema con el manejo de los archivos.
 	 * @see {@link IOException}
 	 */
 	private static void setCellImages (Board board, BoardPanel boardPanel) throws IOException{
@@ -413,7 +413,7 @@ public class GameFrame extends JFrame {
 	}
 	
 	/**
-	 * Método que se encarga de centrar el panel.
+	 * Metodo que se encarga de centrar el panel.
 	 */
 	private void center() {
 		Toolkit t = getToolkit();
