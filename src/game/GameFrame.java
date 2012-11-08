@@ -11,12 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,6 +29,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import board.Board;
 import board.Direction;
+import board.GameFileManager;
 import board.InvalidLevelException;
 import board.MoveRes;
 import board.Position;
@@ -61,8 +58,6 @@ public class GameFrame extends JFrame {
 	private static final Dimension INITIAL_SIZE = new Dimension(150, 120);
 	private static final int CELL_SIZE = 30;
 	
-	private Board board;
-	
 	private JPanel menuPanel = new JPanel();
 	private JButton newGameButton = new JButton("New Game");
 	private JButton loadGameButton = new JButton("Load Game");
@@ -74,6 +69,7 @@ public class GameFrame extends JFrame {
 	private JButton restartGameButton = new JButton("Restart Level");
 	
 	private BoardPanel boardPanel;
+	private Board board;
 
 	private File actualLevelFile = null;
 	
@@ -206,27 +202,40 @@ public class GameFrame extends JFrame {
 	 * @throws IOException
 	 */
 	protected void saveGame(File f) throws IOException {
-		ObjectOutputStream outStream = null;
-		if (f != null) {
-			try {
-				outStream = new ObjectOutputStream(new FileOutputStream(f));
-				outStream.writeObject(board);
-				
-			} catch (StreamCorruptedException e1) {
-				JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
-						"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
-			}
-			finally {
-				if (outStream != null)
-					outStream.close();
-			}
+		GameFileManager fm = new GameFileManager();
+		try {
+			fm.save(f);
+		}catch (StreamCorruptedException e1){
+			JOptionPane.showMessageDialog (this, "El archivo esta mal formado", 
+			"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 	
-
 	/**
-	 * m�todo que retorna nuevamente al men� inicial.
+	 * Carga un juego guardado a partir del archivo f
+	 * @param f
+	 * @throws IOException
+	 */
+	private void loadGame(File f) {
+		GameFileManager fm = new GameFileManager();
+		try{
+			board = fm.loadGame(f);
+			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
+			setCellImages(board, boardPanel);
+			menuPanel.setVisible(false);
+			gameMenuPanel.setVisible(true);
+			add(boardPanel, BorderLayout.CENTER);
+			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
+			center();
+		}catch (Exception e){
+			JOptionPane.showMessageDialog(this, "El archivo esta mal formado", 
+					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	/**
+	 * metodo que retorna nuevamente al menu inicial.
 	 */
 	protected void returnToMenu() {
 		gameMenuPanel.setVisible(false);
@@ -319,37 +328,7 @@ public class GameFrame extends JFrame {
 		
 	}
 
-	/**
-	 * Carga un juego guardado a partir del archivo f
-	 * @param f
-	 * @throws IOException
-	 */
-	private void loadGame(File f) {
-		ObjectInputStream inStream = null;
-		try {
-			inStream = new ObjectInputStream(new FileInputStream(f));
-			board = (Board) inStream.readObject();
-			boardPanel = new BoardPanel(board.rows, board.columns, CELL_SIZE);
-			setCellImages(board, boardPanel);
-			menuPanel.setVisible(false);
-			gameMenuPanel.setVisible(true);
-			add(boardPanel, BorderLayout.CENTER);
-			setSize(boardPanel.getWidth(), boardPanel.getHeight() + 20);
-			center();
-			
-		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(this, "El archivo está mal formado", 
-					"Error al cargar el juego", JOptionPane.ERROR_MESSAGE);
-		}
-		finally {
-			if (inStream != null)
-				try {
-					inStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		}
-	}
+	
 	/**
 	 * Metodo que da a elegir un archivo determinado a partir del parametro {@code path}
 	 * @param path es un strin con el directorio de donde se quiere elegir un archivo
