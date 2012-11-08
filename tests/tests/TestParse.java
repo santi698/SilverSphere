@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import board.Board;
 import board.InvalidLevelException;
@@ -46,20 +44,15 @@ public class TestParse {
 			boolean flag = false;
 			System.out.println("File: " + file);
 			String[] sArr = readFileToStringArray(file);
-			Board b;
 			try {
-				b = new Board(sArr);
-				System.out.println(b);
+				new Board(sArr);
 			} catch (InvalidLevelException e1) {
-				System.out.println(e1.getMessage());
 				flag = true;
 			}
 			assertTrue(flag);
 		}
 	}
 	
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
 	@Test
 	public void testValid() throws IOException, InvalidLevelException {
 		String[] files = {"./resources/levels/v01.txt",
@@ -71,9 +64,6 @@ public class TestParse {
 			Board b;
 			b = new Board(sArr);
 			System.out.println(b);
-		}
-	
+		}	
 	}
-	
-
 }

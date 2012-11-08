@@ -4,24 +4,20 @@
 <target name="compile">
 	<mkdir dir="bin"/>
 	<javac srcdir="src" destdir="bin"/>
-	<javac srcdir="tests" destdir="bin" classpath="lib/junit.jar;bin"/>
+	<javac srcdir="tests" destdir="bin" classpath="lib/junit-4.7.jar;bin"/>
 </target>
 	
 <!-- Crea la documentacion en formato Javadoc, en el directorio doc. -->
 <target name="doc" depends="compile">
-	<javadoc sourcepath="src" destdir="doc" classpath="lib/junit.jar"/>
+	<javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar"/>
 </target>
 	
 <!-- Ejecuta los tests. -->
 <target name="tests" depends="compile">
-	<junit showoutput="true" printsummary="on">
-		<formatter type="brief" usefile="false"/>
-		<classpath path="lib/junit.jar;bin" />
-		<test name="tests.TestMove" />
-	</junit>
 	<junit>
 		<formatter type="brief" usefile="false"/>
-		<classpath path="lib/junit.jar;bin"/>
+		<classpath path="lib/junit-4.7.jar;bin" />
+		<test name="tests.TestMove" />
 		<test name="tests.TestParse"/>
 	</junit>
 </target>
