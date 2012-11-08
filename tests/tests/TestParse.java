@@ -42,7 +42,6 @@ public class TestParse {
 				"test_levels/INV09.txt", "test_levels/INV10.txt",};
 		for (String file : files) {
 			boolean flag = false;
-			System.out.println("File: " + file);
 			String[] sArr = readFileToStringArray(file);
 			try {
 				new Board(sArr);
@@ -59,11 +58,9 @@ public class TestParse {
 				"./resources/levels/v02.txt", "./resources/levels/v03.txt",
 				"./resources/levels/v04.txt"};
 		for (String file : files) {
-			System.out.println("File: " + file);
 			String[] sArr = readFileToStringArray(file);
-			Board b;
-			b = new Board(sArr);
-			System.out.println(b);
+			//Ver si se puede comprobar algo más
+			new Board(sArr);
 		}	
 	}
 }

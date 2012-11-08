@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="src" path="test_levels"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/junit-4.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
+=======
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="src" path="tests"/>
+    <classpathentry kind="src" path="test_levels"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="lib" path="lib/junit-4.7.jar"/>
+    <classpathentry kind="output" path="bin"/>
+>>>>>>> master
 </classpath>
